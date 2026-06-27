@@ -50,20 +50,20 @@ lv_obj_t * screen_animations_create(void)
 
     lv_obj_t * button_list = list_create(lv_obj_0);
     lv_obj_set_name(button_list, "button_list");
-
+    
     lv_obj_t * show = button_normal_create(lv_obj_0, "Show");
     lv_obj_set_name(show, "show");
     lv_obj_set_align(show, LV_ALIGN_TOP_RIGHT);
     lv_obj_set_x(show, -10);
     lv_obj_set_y(show, 10);
-
+    
     lv_obj_t * hide = button_normal_create(lv_obj_0, "Hide");
     lv_obj_set_name(hide, "hide");
     lv_obj_set_align(hide, LV_ALIGN_TOP_RIGHT);
     lv_obj_set_x(hide, -10);
     lv_obj_set_y(hide, 70);
-
-
+    
+    
     /* create animation timeline(s) */
     lv_anim_timeline_t ** at_array = lv_malloc(sizeof(lv_anim_timeline_t *) * _SCREEN_ANIMATIONS_TIMELINE_CNT);
     at_array[SCREEN_ANIMATIONS_TIMELINE_SCREEN_OPEN] = timeline_screen_open_create(lv_obj_0);

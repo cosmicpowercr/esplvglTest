@@ -49,29 +49,29 @@ lv_obj_t * list_create(lv_obj_t * parent)
 
     lv_obj_t * button_0 = button_normal_create(lv_obj_0, "Button 0");
     lv_obj_set_name(button_0, "button_0");
-
+    
     lv_obj_t * button_1 = button_normal_create(lv_obj_0, "Button 1");
     lv_obj_set_name(button_1, "button_1");
-
+    
     lv_obj_t * button_2 = button_normal_create(lv_obj_0, "Button 2");
     lv_obj_set_name(button_2, "button_2");
-
+    
     lv_obj_t * button_3 = button_normal_create(lv_obj_0, "Button 3");
     lv_obj_set_name(button_3, "button_3");
-
+    
     lv_obj_t * button_4 = button_normal_create(lv_obj_0, "Button 4");
     lv_obj_set_name(button_4, "button_4");
-
+    
     lv_obj_t * button_5 = button_normal_create(lv_obj_0, "Button 5");
     lv_obj_set_name(button_5, "button_5");
-
+    
     lv_obj_t * button_6 = button_normal_create(lv_obj_0, "Button 6");
     lv_obj_set_name(button_6, "button_6");
-
+    
     lv_obj_t * button_7 = button_normal_create(lv_obj_0, "Button 7");
     lv_obj_set_name(button_7, "button_7");
-
-
+    
+    
     /* create animation timeline(s) */
     lv_anim_timeline_t ** at_array = lv_malloc(sizeof(lv_anim_timeline_t *) * _LIST_TIMELINE_CNT);
     at_array[LIST_TIMELINE_LIST_OPEN] = timeline_list_open_create(lv_obj_0);

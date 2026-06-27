@@ -69,8 +69,8 @@ lv_obj_t * button_normal_create(lv_obj_t * parent, const char * label_text)
     lv_obj_t * lv_label_0 = lv_label_create(lv_button_0);
     lv_label_set_text(lv_label_0, label_text);
     lv_obj_set_align(lv_label_0, LV_ALIGN_CENTER);
-
-
+    
+    
     /* create animation timeline(s) */
     lv_anim_timeline_t ** at_array = lv_malloc(sizeof(lv_anim_timeline_t *) * _BUTTON_NORMAL_TIMELINE_CNT);
     at_array[BUTTON_NORMAL_TIMELINE_SHOW_UP] = timeline_show_up_create(lv_button_0);
