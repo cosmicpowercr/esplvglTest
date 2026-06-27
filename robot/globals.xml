@@ -1,0 +1,108 @@
+<globals>
+    <api>
+        <!-- Add <enumdefs> here if needed -->
+    </api>
+
+    <consts>
+        <!-- Spacing units (compact for 240x240 screen) -->
+        <int name="unit_xs" value="4" />
+        <int name="unit_sm" value="6" />
+        <int name="unit_md" value="10" />
+        <int name="unit_lg" value="16" />
+        <int name="unit_xl" value="22" />
+
+        <percentage name="opa_muted" value="20%" />
+
+        <!-- Base colors -->
+        <color name="light" value="0xffffff" />
+        <color name="dark" value="0x0e0e0e" />
+        <color name="surface_primary_light" value="0x1e1e1e" />
+        <color name="text_on_surface_primary_light" value="0xffffff" />
+        <color name="surface_primary_dark" value="0xffffff" />
+        <color name="text_on_surface_primary_dark" value="0x0e0e0e" />
+
+        <!-- Background colors -->
+        <color name="bg_primary_light" value="0xf5f5f5" />
+        <color name="bg_primary_dark" value="0x1a1a2e" />
+        <color name="bg_secondary_light" value="0xffffff" />
+        <color name="bg_secondary_dark" value="0x16213e" />
+        <color name="bg_tertiary_light" value="0xe8e8e8" />
+        <color name="bg_tertiary_dark" value="0x0f3460" />
+
+        <!-- Accent colors -->
+        <color name="accent_blue" value="0x3b82f6" />
+        <color name="accent_green" value="0x10b981" />
+        <color name="accent_red" value="0xef4444" />
+        <color name="accent_orange" value="0xf59e0b" />
+        <color name="accent_purple" value="0x8b5cf6" />
+
+        <!-- Chat bubble colors -->
+        <color name="bubble_user" value="0x3b82f6" />
+        <color name="bubble_ai_light" value="0xe5e7eb" />
+        <color name="bubble_ai_dark" value="0x374151" />
+        <color name="text_user" value="0xffffff" />
+        <color name="text_ai_light" value="0x1f2937" />
+        <color name="text_ai_dark" value="0xf9fafb" />
+
+        <!-- Expression face colors -->
+        <color name="face_bg" value="0xf0f0f0" />
+        <color name="face_bg_dark" value="0x2d2d44" />
+        <color name="face_eye" value="0x1e1e1e" />
+        <color name="face_eye_dark" value="0xffffff" />
+        <color name="face_mouth" value="0x1e1e1e" />
+        <color name="face_mouth_dark" value="0xffffff" />
+
+        <!-- Music page colors -->
+        <color name="music_item_bg" value="0xffffff" />
+        <color name="music_item_bg_dark" value="0x16213e" />
+        <color name="music_item_selected" value="0xdbeafe" />
+        <color name="music_item_selected_dark" value="0x1e3a5f" />
+    </consts>
+
+    <styles>
+        <!-- Global utility styles -->
+        <style name="style_disabled" opa_layered="60%" />
+        <style name="style_reset" width="content" height="content" bg_opa="0" border_width="0" radius="0" pad_all="0" />
+
+        <!-- Screen background -->
+        <style name="style_screen_light" bg_color="#bg_primary_light" text_color="#surface_primary_light" />
+        <style name="style_screen_dark" bg_color="#bg_primary_dark" text_color="#surface_primary_dark" />
+
+        <!-- Section header -->
+        <style name="style_section_header" text_font="font_14" text_color="0x6b7280" pad_hor="#unit_md" pad_ver="#unit_sm" />
+
+        <!-- Divider line -->
+        <style name="style_divider" bg_color="#bg_tertiary_light" height="1" width="100%" />
+        <style name="style_divider_dark" bg_color="#bg_tertiary_dark" />
+    </styles>
+
+    <subjects>
+        <!-- ====== AI Main Page ====== -->
+        <int name="ai_mode" value="0" help="0:expression mode, 1:dialog mode" />
+        <int name="expression" value="0" help="0:neutral, 1:happy, 2:sad, 3:thinking, 4:speaking, 5:surprised, 6:listening" />
+        <int name="ai_status_text_id" value="0" help="Status text identifier set by C code" />
+
+        <!-- ====== Settings ====== -->
+        <int name="volume" value="50" min_value="0" max_value="100" />
+        <int name="brightness" value="80" min_value="0" max_value="100" />
+        <int name="wifi_on" value="0" help="0:off, 1:on" />
+
+        <!-- ====== Music Player ====== -->
+        <int name="sort_order" value="0" help="0:sequential, 1:random" />
+        <int name="play_mode" value="0" help="0:single_repeat, 1:list_play" />
+        <int name="current_song_index" value="0" help="Index of currently selected/playing song" />
+        <int name="song_count" value="0" help="Total number of songs found on SD card" />
+        <string name="current_song_name" value="No song" help="Name of the currently playing song" />
+    </subjects>
+
+    <fonts>
+        <tiny_ttf name="font_10" size="10" as_file="true" src_path="fonts/Geist/Geist-Regular.ttf" />
+        <tiny_ttf name="font_12" size="12" as_file="true" src_path="fonts/Geist/Geist-Regular.ttf" />
+        <tiny_ttf name="font_14" size="14" as_file="true" src_path="fonts/Geist/Geist-Regular.ttf" />
+        <tiny_ttf name="font_16" size="16" as_file="true" src_path="fonts/Geist/Geist-SemiBold.ttf" />
+        <tiny_ttf name="font_20" size="20" as_file="true" src_path="fonts/Geist/Geist-SemiBold.ttf" />
+        <tiny_ttf name="font_24" size="24" as_file="true" src_path="fonts/Geist/Geist-SemiBold.ttf" />
+        <tiny_ttf name="font_36" size="36" as_file="true" src_path="fonts/Geist/Geist-Bold.ttf" />
+        <tiny_ttf name="font_48" size="48" as_file="true" src_path="fonts/Geist/Geist-Bold.ttf" />
+    </fonts>
+</globals>

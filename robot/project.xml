@@ -1,0 +1,7 @@
+<project name="robot" lvgl_version="9.5.0">
+    <targets>
+        <target name="full_view">
+            <display width="240" height="240" />
+        </target>
+    </targets>
+</project>

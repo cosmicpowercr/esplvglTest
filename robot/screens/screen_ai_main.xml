@@ -1,0 +1,455 @@
+<!--
+    AI Main Page (Permanent Screen)
+    ================================
+    This screen is permanent — it is created once and never deleted, so all
+    widget states persist across page switches. The mode (expression or dialog)
+    is controlled by the "ai_mode" subject. Mode switching happens in the
+    Settings page; when ai_mode changes, the C code resets this screen.
+
+    Modes:
+      ai_mode = 0: Expression Mode — animated face that reacts to conversation
+      ai_mode = 1: Dialog Mode — WeChat-style chat history (last 25 messages)
+
+    References:
+      - Expression mode inspired by EchoEar (esp-brookesia speaker product)
+      - Dialog mode inspired by Xiaozhi (xiaozhi-esp32)
+-->
+<screen permanent="true">
+    <styles>
+        <!-- Top bar style -->
+        <style name="style_top_bar"
+            bg_color="0xffffff"
+            bg_opa="100%"
+            width="100%"
+            height="36"
+            pad_hor="#unit_md"
+        />
+        <style name="style_top_bar_dark"
+            bg_color="0x16213e"
+        />
+
+        <!-- Settings icon button style -->
+        <style name="style_settings_btn"
+            bg_opa="0%"
+            radius="#unit_md"
+            pad_all="#unit_sm"
+            width="32"
+            height="32"
+            text_color="0x6b7280"
+            text_font="font_16"
+        />
+        <style name="style_settings_btn_dark"
+            text_color="0xd1d5db"
+        />
+
+        <!-- Face background (large circle) -->
+        <style name="style_face_bg"
+            bg_color="0xf0f0f0"
+            bg_opa="100%"
+            radius="1000"
+            width="150"
+            height="150"
+            border_color="0xd1d5db"
+            border_width="2"
+            border_opa="100%"
+        />
+        <style name="style_face_bg_dark"
+            bg_color="0x2d2d44"
+            border_color="0x4b5563"
+        />
+
+        <!-- Eye style (small filled circle) -->
+        <style name="style_eye"
+            bg_color="0x1f2937"
+            bg_opa="100%"
+            radius="1000"
+            width="14"
+            height="14"
+        />
+        <style name="style_eye_dark"
+            bg_color="0xf9fafb"
+        />
+
+        <!-- Mouth styles for different expressions -->
+        <!-- Neutral mouth: flat thin line -->
+        <style name="style_mouth_neutral"
+            bg_color="0x1f2937"
+            bg_opa="100%"
+            radius="4"
+            width="40"
+            height="6"
+        />
+        <style name="style_mouth_neutral_dark"
+            bg_color="0xf9fafb"
+        />
+
+        <!-- Happy mouth: wider oval (simulated with border radius) -->
+        <style name="style_mouth_happy"
+            bg_color="0x1f2937"
+            bg_opa="0%"
+            radius="1000"
+            width="50"
+            height="24"
+            border_color="0x1f2937"
+            border_width="4"
+            border_opa="100%"
+            border_side="1"
+        />
+        <style name="style_mouth_happy_dark"
+            border_color="0xf9fafb"
+        />
+
+        <!-- Sad mouth: inverted happy -->
+        <style name="style_mouth_sad"
+            bg_color="0x1f2937"
+            bg_opa="0%"
+            radius="1000"
+            width="50"
+            height="24"
+            border_color="0x1f2937"
+            border_width="4"
+            border_opa="100%"
+            border_side="4"
+        />
+        <style name="style_mouth_sad_dark"
+            border_color="0xf9fafb"
+        />
+
+        <!-- Speaking mouth: open circle/oval -->
+        <style name="style_mouth_speaking"
+            bg_color="0x1f2937"
+            bg_opa="100%"
+            radius="1000"
+            width="24"
+            height="24"
+        />
+        <style name="style_mouth_speaking_dark"
+            bg_color="0xf9fafb"
+        />
+
+        <!-- Surprised mouth: bigger open circle -->
+        <style name="style_mouth_surprised"
+            bg_color="0x1f2937"
+            bg_opa="100%"
+            radius="1000"
+            width="32"
+            height="32"
+        />
+        <style name="style_mouth_surprised_dark"
+            bg_color="0xf9fafb"
+        />
+
+        <!-- Thinking mouth: small offset dot -->
+        <style name="style_mouth_thinking"
+            bg_color="0x1f2937"
+            bg_opa="100%"
+            radius="1000"
+            width="12"
+            height="12"
+        />
+        <style name="style_mouth_thinking_dark"
+            bg_color="0xf9fafb"
+        />
+
+        <!-- Listening mouth: slight smile line -->
+        <style name="style_mouth_listening"
+            bg_color="0x1f2937"
+            bg_opa="100%"
+            radius="3"
+            width="30"
+            height="5"
+        />
+        <style name="style_mouth_listening_dark"
+            bg_color="0xf9fafb"
+        />
+
+        <!-- Bottom status text -->
+        <style name="style_status_text"
+            text_font="font_12"
+            text_color="0x9ca3af"
+            text_align="center"
+        />
+        <style name="style_status_text_dark"
+            text_color="0x6b7280"
+        />
+
+        <!-- ====== Dialog Mode Styles ====== -->
+        <!-- Dialog top bar -->
+        <style name="style_dialog_top_bar"
+            bg_color="0xffffff"
+            bg_opa="100%"
+            width="100%"
+            height="36"
+            pad_hor="#unit_md"
+            border_side="1"
+            border_color="0xe5e7eb"
+            border_width="1"
+        />
+        <style name="style_dialog_top_bar_dark"
+            bg_color="0x16213e"
+            border_color="0x374151"
+        />
+
+        <!-- Chat scroll container -->
+        <style name="style_chat_scroll"
+            bg_color="0xf5f5f5"
+            bg_opa="100%"
+            width="100%"
+            pad_hor="#unit_sm"
+            pad_ver="#unit_sm"
+        />
+        <style name="style_chat_scroll_dark"
+            bg_color="0x1a1a2e"
+        />
+
+        <!-- Chat bubble styles -->
+        <style name="style_bubble_user"
+            bg_color="0x3b82f6"
+            bg_opa="100%"
+            text_color="0xffffff"
+            radius="#unit_md"
+            pad_hor="#unit_md"
+            pad_ver="#unit_sm"
+            max_width="170"
+        />
+
+        <style name="style_bubble_ai"
+            bg_color="0xe5e7eb"
+            bg_opa="100%"
+            text_color="0x1f2937"
+            radius="#unit_md"
+            pad_hor="#unit_md"
+            pad_ver="#unit_sm"
+            max_width="170"
+        />
+        <style name="style_bubble_ai_dark"
+            bg_color="0x374151"
+            text_color="0xf9fafb"
+        />
+
+        <!-- Empty state hint -->
+        <style name="style_empty_hint"
+            text_font="font_14"
+            text_color="0x9ca3af"
+            text_align="center"
+        />
+        <style name="style_empty_hint_dark"
+            text_color="0x6b7280"
+        />
+    </styles>
+
+    <view flex_flow="column" width="100%" height="100%">
+        <!-- Bind screen background -->
+        <style name="style_screen_light" />
+        <bind_style name="style_screen_dark" subject="dark_theme" ref_value="1" />
+
+        <!-- ================================================================ -->
+        <!-- EXPRESSION MODE (ai_mode = 0)                                   -->
+        <!-- ================================================================ -->
+        <view name="expression_mode_view" flex_flow="column" width="100%" height="100%">
+            <bind_flag_if_eq subject="ai_mode" ref_value="1" flag="hidden" />
+
+            <!-- Top bar with settings button -->
+            <view flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+                <style name="style_top_bar" />
+                <bind_style name="style_top_bar_dark" subject="dark_theme" ref_value="1" />
+
+                <!-- Title -->
+                <lv_label text="AI Assistant" style_text_font="font_14" style_text_color="0x374151">
+                    <bind_style name="style_top_bar_dark" subject="dark_theme" ref_value="1" />
+                </lv_label>
+
+                <!-- Music + Settings buttons -->
+                <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                    <!-- Music button (LV_SYMBOL_AUDIO / music note) -->
+                    <lv_button>
+                        <style name="style_settings_btn" />
+                        <bind_style name="style_settings_btn_dark" subject="dark_theme" ref_value="1" />
+                        <lv_label text="♪" style_text_font="font_16" style_text_color="0x6b7280" />
+                        <screen_create_event screen="screen_music" anim_type="move_left" duration="300" />
+                    </lv_button>
+
+                    <!-- Settings button (LV_SYMBOL_SETTINGS gear icon) -->
+                    <lv_button>
+                        <style name="style_settings_btn" />
+                        <bind_style name="style_settings_btn_dark" subject="dark_theme" ref_value="1" />
+                        <lv_label text="⚙" style_text_font="font_16" style_text_color="0x6b7280" />
+                        <screen_load_event screen="screen_settings" anim_type="move_left" duration="300" />
+                    </lv_button>
+                </view>
+            </view>
+
+            <!-- Face area (centered, flex_grow to push to middle) -->
+            <view name="face_container" flex_flow="column" flex_grow="1" style_flex_main_place="center" style_flex_cross_place="center" style_flex_track_place="center">
+                <!-- Face background circle -->
+                <lv_obj name="face_bg">
+                    <style name="style_face_bg" />
+                    <bind_style name="style_face_bg_dark" subject="dark_theme" ref_value="1" />
+
+                    <!-- Left eye -->
+                    <lv_obj name="eye_left" align="center" x="-35" y="-25">
+                        <style name="style_eye" />
+                        <bind_style name="style_eye_dark" subject="dark_theme" ref_value="1" />
+                    </lv_obj>
+
+                    <!-- Right eye -->
+                    <lv_obj name="eye_right" align="center" x="35" y="-25">
+                        <style name="style_eye" />
+                        <bind_style name="style_eye_dark" subject="dark_theme" ref_value="1" />
+                    </lv_obj>
+
+                    <!-- ====== Mouth Variants (shown/hidden by expression) ====== -->
+
+                    <!-- Neutral mouth (expression=0) -->
+                    <lv_obj name="mouth_neutral" align="center" y="22">
+                        <style name="style_mouth_neutral" />
+                        <bind_style name="style_mouth_neutral_dark" subject="dark_theme" ref_value="1" />
+                        <bind_flag_if_eq subject="expression" ref_value="0" flag="hidden" invert="true" />
+                    </lv_obj>
+
+                    <!-- Happy mouth (expression=1) - upward smile arc -->
+                    <lv_obj name="mouth_happy" align="center" y="18">
+                        <style name="style_mouth_happy" />
+                        <bind_style name="style_mouth_happy_dark" subject="dark_theme" ref_value="1" />
+                        <bind_flag_if_eq subject="expression" ref_value="1" flag="hidden" invert="true" />
+                    </lv_obj>
+
+                    <!-- Sad mouth (expression=2) - downward frown arc -->
+                    <lv_obj name="mouth_sad" align="center" y="18">
+                        <style name="style_mouth_sad" />
+                        <bind_style name="style_mouth_sad_dark" subject="dark_theme" ref_value="1" />
+                        <bind_flag_if_eq subject="expression" ref_value="2" flag="hidden" invert="true" />
+                    </lv_obj>
+
+                    <!-- Thinking mouth (expression=3) - small offset dot -->
+                    <lv_obj name="mouth_thinking" align="center" x="10" y="25">
+                        <style name="style_mouth_thinking" />
+                        <bind_style name="style_mouth_thinking_dark" subject="dark_theme" ref_value="1" />
+                        <bind_flag_if_eq subject="expression" ref_value="3" flag="hidden" invert="true" />
+                    </lv_obj>
+
+                    <!-- Speaking mouth (expression=4) - open circle -->
+                    <lv_obj name="mouth_speaking" align="center" y="25">
+                        <style name="style_mouth_speaking" />
+                        <bind_style name="style_mouth_speaking_dark" subject="dark_theme" ref_value="1" />
+                        <bind_flag_if_eq subject="expression" ref_value="4" flag="hidden" invert="true" />
+                    </lv_obj>
+
+                    <!-- Surprised mouth (expression=5) - big open circle -->
+                    <lv_obj name="mouth_surprised" align="center" y="26">
+                        <style name="style_mouth_surprised" />
+                        <bind_style name="style_mouth_surprised_dark" subject="dark_theme" ref_value="1" />
+                        <bind_flag_if_eq subject="expression" ref_value="5" flag="hidden" invert="true" />
+                    </lv_obj>
+
+                    <!-- Listening mouth (expression=6) - slight smile -->
+                    <lv_obj name="mouth_listening" align="center" y="22">
+                        <style name="style_mouth_listening" />
+                        <bind_style name="style_mouth_listening_dark" subject="dark_theme" ref_value="1" />
+                        <bind_flag_if_eq subject="expression" ref_value="6" flag="hidden" invert="true" />
+                    </lv_obj>
+                </lv_obj>
+            </view>
+
+            <!-- Bottom hint / status text -->
+            <view width="100%" style_flex_track_place="center" style_pad_ver="#unit_md">
+                <lv_label
+                    text="Tap to talk"
+                    style_text_font="font_12"
+                    style_text_color="0x9ca3af"
+                    style_text_align="center"
+                    width="100%"
+                >
+                    <bind_style name="style_status_text_dark" subject="dark_theme" ref_value="1" />
+                </lv_label>
+            </view>
+        </view>
+
+        <!-- ================================================================ -->
+        <!-- DIALOG MODE (ai_mode = 1)                                       -->
+        <!-- ================================================================ -->
+        <view name="dialog_mode_view" flex_flow="column" width="100%" height="100%">
+            <bind_flag_if_eq subject="ai_mode" ref_value="0" flag="hidden" />
+
+            <!-- Top bar -->
+            <view flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+                <style name="style_dialog_top_bar" />
+                <bind_style name="style_dialog_top_bar_dark" subject="dark_theme" ref_value="1" />
+
+                <lv_label text="Conversation" style_text_font="font_14" style_text_color="0x374151">
+                    <bind_style name="style_top_bar_dark" subject="dark_theme" ref_value="1" />
+                </lv_label>
+
+                <!-- Music + Settings buttons -->
+                <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                    <!-- Music button -->
+                    <lv_button>
+                        <style name="style_settings_btn" />
+                        <bind_style name="style_settings_btn_dark" subject="dark_theme" ref_value="1" />
+                        <lv_label text="♪" style_text_font="font_16" style_text_color="0x6b7280" />
+                        <screen_create_event screen="screen_music" anim_type="move_left" duration="300" />
+                    </lv_button>
+
+                    <!-- Settings button -->
+                    <lv_button>
+                        <style name="style_settings_btn" />
+                        <bind_style name="style_settings_btn_dark" subject="dark_theme" ref_value="1" />
+                        <lv_label text="⚙" style_text_font="font_16" style_text_color="0x6b7280" />
+                        <screen_load_event screen="screen_settings" anim_type="move_left" duration="300" />
+                    </lv_button>
+                </view>
+            </view>
+
+            <!-- Scrollable chat area (messages populated by C code at runtime) -->
+            <!--
+                C code should dynamically create chat bubbles as children of
+                this container. Each bubble is a row with:
+                - AI messages: left-aligned, gray bg, rounded corners (top-left less rounded)
+                - User messages: right-aligned, blue bg, rounded corners (top-right less rounded)
+                Max 25 messages visible; older messages scroll off top.
+
+                Use subject "ai_mode" changes to trigger a full refresh.
+            -->
+            <lv_obj
+                name="chat_container"
+                flex_grow="1"
+                flex_flow="column"
+                scroll_dir="vertical"
+                style_pad_all="#unit_sm"
+                style_pad_row="#unit_sm"
+            >
+                <style name="style_chat_scroll" />
+                <bind_style name="style_chat_scroll_dark" subject="dark_theme" ref_value="1" />
+
+                <!-- Placeholder hint (hidden once messages exist) -->
+                <!-- C code should show/hide this based on message count -->
+                <lv_label
+                    name="chat_empty_hint"
+                    text="No messages yet.&#10;Start a conversation!"
+                    width="100%"
+                    align="center"
+                >
+                    <style name="style_empty_hint" />
+                    <bind_style name="style_empty_hint_dark" subject="dark_theme" ref_value="1" />
+                </lv_label>
+
+                <!--
+                    Chat messages are added here at runtime by C code.
+                    Example message bubbles (for reference):
+
+                    AI message:
+                    <view flex_flow="row" width="100%" style_flex_main_place="start">
+                        <lv_label text="Hello! How can I help?" max_width="170"
+                            style="style_bubble_ai" style_text_font="font_12" />
+                    </view>
+
+                    User message:
+                    <view flex_flow="row" width="100%" style_flex_main_place="end">
+                        <lv_label text="What is the weather?" max_width="170"
+                            style="style_bubble_user" style_text_font="font_12" />
+                    </view>
+                -->
+            </lv_obj>
+        </view>
+    </view>
+</screen>

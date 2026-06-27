@@ -1,0 +1,72 @@
+<!--
+    Music Item Component
+    A single song entry in the music playlist.
+    - Displays song file name
+    - Highlights when selected (current_song_index matches this item's index)
+    - The C code handles the actual selection logic
+-->
+<component>
+    <previews>
+        <preview width="220" height="40" style_pad_all="4" />
+    </previews>
+
+    <api>
+        <prop name="song_name" type="string" default="song.mp3" help="The MP3 file name" />
+        <prop name="song_index" type="int" default="0" help="Index in the playlist" />
+    </api>
+
+    <styles>
+        <!-- Normal (unselected) item style -->
+        <style name="style_item_normal"
+            bg_color="0xffffff"
+            bg_opa="100%"
+            text_color="0x1f2937"
+            radius="#unit_sm"
+            pad_hor="#unit_md"
+            pad_ver="#unit_sm"
+            width="100%"
+            height="content"
+            border_width="0"
+        />
+        <style name="style_item_normal_dark"
+            bg_color="0x16213e"
+            text_color="0xf9fafb"
+        />
+
+        <!-- Selected (playing) item style -->
+        <style name="style_item_selected"
+            bg_color="0xdbeafe"
+            bg_opa="100%"
+            text_color="0x1e40af"
+            border_color="0x3b82f6"
+            border_width="2"
+            border_opa="100%"
+        />
+        <style name="style_item_selected_dark"
+            bg_color="0x1e3a5f"
+            text_color="0x93c5fd"
+            border_color="0x60a5fa"
+        />
+
+        <!-- Text style for song name -->
+        <style name="style_song_text"
+            text_font="font_12"
+        />
+    </styles>
+
+    <view width="100%" height="content" style_pad_ver="#unit_xs">
+        <lv_label
+            text="$song_name"
+            align="left"
+            width="100%"
+        >
+            <style name="style_item_normal" />
+            <style name="style_song_text" />
+            <bind_style name="style_item_normal_dark" subject="dark_theme" ref_value="1" />
+            <!-- Selected state is applied by C code via lv_obj_add_state or similar -->
+        </lv_label>
+        <!-- Note: The selected highlight is managed by C code at runtime.
+             When the user scrolls and stops for 3s, C code sets the selected
+             state on the item under the scroll position and triggers playback. -->
+    </view>
+</component>
