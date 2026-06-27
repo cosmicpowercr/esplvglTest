@@ -190,7 +190,7 @@
         </view>
 
         <!-- ====== Scrollable Settings Content ====== -->
-        <lv_obj name="settings_scroll" flex_grow="1" flex_flow="column" scroll_dir="vertical"
+        <lv_obj name="settings_scroll" flex_grow="1" flex_flow="column" scrollable="true"
             style_pad_all="#unit_md" style_pad_row="#unit_lg">
 
             <!-- ================================================================ -->

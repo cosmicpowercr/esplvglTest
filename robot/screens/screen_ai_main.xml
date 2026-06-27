@@ -414,7 +414,7 @@
                 name="chat_container"
                 flex_grow="1"
                 flex_flow="column"
-                scroll_dir="vertical"
+                scrollable="true"
                 style_pad_all="#unit_sm"
                 style_pad_row="#unit_sm"
             >

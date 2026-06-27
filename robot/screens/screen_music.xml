@@ -313,7 +313,7 @@
             name="song_list_container"
             flex_grow="1"
             flex_flow="column"
-            scroll_dir="vertical"
+            scrollable="true"
             style_pad_row="#unit_xs"
         >
             <style name="style_list_bg" />
