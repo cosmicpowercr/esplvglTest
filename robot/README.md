@@ -108,6 +108,6 @@ lv_subject_set_int(expression_subject, EXPRESSION_HAPPY); // 0-6
 Font files should be placed in `robot/fonts/Geist/`:
 - `Geist-Regular.ttf` → font_10, font_12, font_14
 - `Geist-SemiBold.ttf` → font_16, font_20, font_24
-- `Geist-Bold.ttf` → font_36, font_48
+<!-- - `Geist-Bold.ttf` → font_36, font_48 -->
 
 Copy from tutorials fonts directory or download from Google Fonts.

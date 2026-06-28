@@ -102,7 +102,7 @@
         <tiny_ttf name="font_16" size="16" as_file="true" src_path="fonts/Geist/Geist-SemiBold.ttf" />
         <tiny_ttf name="font_20" size="20" as_file="true" src_path="fonts/Geist/Geist-SemiBold.ttf" />
         <tiny_ttf name="font_24" size="24" as_file="true" src_path="fonts/Geist/Geist-SemiBold.ttf" />
-        <tiny_ttf name="font_36" size="36" as_file="true" src_path="fonts/Geist/Geist-Bold.ttf" />
-        <tiny_ttf name="font_48" size="48" as_file="true" src_path="fonts/Geist/Geist-Bold.ttf" />
+        <!-- <tiny_ttf name="font_36" size="36" as_file="true" src_path="fonts/Geist/Geist-Bold.ttf" />
+        <tiny_ttf name="font_48" size="48" as_file="true" src_path="fonts/Geist/Geist-Bold.ttf" /> -->
     </fonts>
 </globals>
