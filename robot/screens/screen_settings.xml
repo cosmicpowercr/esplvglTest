@@ -171,7 +171,7 @@
         <bind_style name="style_screen_dark" subject="dark_theme" ref_value="1" />
 
         <!-- ====== Top Navigation Bar ====== -->
-        <view flex_flow="row" width="100%" style_flex_main_place="start" style_flex_cross_place="center">
+        <lv_obj flex_flow="row" width="100%" style_flex_main_place="start" style_flex_cross_place="center">
             <style name="style_top_bar" />
             <bind_style name="style_top_bar_dark" subject="dark_theme" ref_value="1" />
 
@@ -187,7 +187,7 @@
             <lv_label text="Settings" style_text_font="font_16" style_text_color="0x374151" style_pad_left="#unit_sm">
                 <bind_style name="style_section_title_dark" subject="dark_theme" ref_value="1" />
             </lv_label>
-        </view>
+        </lv_obj>
 
         <!-- ====== Scrollable Settings Content ====== -->
         <lv_obj name="settings_scroll" flex_grow="1" flex_flow="column" scrollable="true"
@@ -196,17 +196,17 @@
             <!-- ================================================================ -->
             <!-- 1. VOLUME SETTING                                                -->
             <!-- ================================================================ -->
-            <view flex_flow="column" style_pad_row="#unit_sm">
+            <lv_obj flex_flow="column" style_pad_row="#unit_sm">
                 <style name="style_section" />
                 <bind_style name="style_section_dark" subject="dark_theme" ref_value="1" />
 
                 <!-- Section header row: icon + title + value -->
-                <view flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
-                    <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                <lv_obj flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+                    <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
                         <!-- Volume icon (LV_SYMBOL_VOLUME_MID) -->
                         <lv_label text="🔊" style_text_font="font_16" />
 
-                        <view flex_flow="column">
+                        <lv_obj flex_flow="column">
                             <lv_label text="Volume">
                                 <style name="style_section_title" />
                                 <bind_style name="style_section_title_dark" subject="dark_theme" ref_value="1" />
@@ -215,15 +215,15 @@
                                 <style name="style_section_subtitle" />
                                 <bind_style name="style_section_subtitle_dark" subject="dark_theme" ref_value="1" />
                             </lv_label>
-                        </view>
-                    </view>
+                        </lv_obj>
+                    </lv_obj>
 
                     <!-- Volume value display -->
                     <lv_label bind_text="volume" bind_text-fmt="%d%%">
                         <style name="style_value_label" />
                         <bind_style name="style_value_label_dark" subject="dark_theme" ref_value="1" />
                     </lv_label>
-                </view>
+                </lv_obj>
 
                 <!-- Volume slider -->
                 <lv_slider bind_value="volume" min_value="0" max_value="100" width="100%" height="20">
@@ -233,21 +233,21 @@
                     <bind_style name="style_slider_main_dark" subject="dark_theme" ref_value="1" />
                     <bind_style name="style_slider_knob_dark" subject="dark_theme" ref_value="1" selector="knob" />
                 </lv_slider>
-            </view>
+            </lv_obj>
 
             <!-- ================================================================ -->
             <!-- 2. AI MODE SWITCHING                                            -->
             <!-- ================================================================ -->
-            <view flex_flow="column" style_pad_row="#unit_sm">
+            <lv_obj flex_flow="column" style_pad_row="#unit_sm">
                 <style name="style_section" />
                 <bind_style name="style_section_dark" subject="dark_theme" ref_value="1" />
 
-                <view flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
-                    <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                <lv_obj flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+                    <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
                         <!-- Mode icon (changes based on current mode) -->
                         <lv_label text="🤖" style_text_font="font_16" />
 
-                        <view flex_flow="column">
+                        <lv_obj flex_flow="column">
                             <lv_label text="AI Mode">
                                 <style name="style_section_title" />
                                 <bind_style name="style_section_title_dark" subject="dark_theme" ref_value="1" />
@@ -256,8 +256,8 @@
                                 <style name="style_section_subtitle" />
                                 <bind_style name="style_section_subtitle_dark" subject="dark_theme" ref_value="1" />
                             </lv_label>
-                        </view>
-                    </view>
+                        </lv_obj>
+                    </lv_obj>
 
                     <!-- Mode toggle button -->
                     <!-- ai_mode: 0=expression (😊), 1=dialog (💬) -->
@@ -266,31 +266,31 @@
                         <style name="style_toggle_btn" />
                         <bind_style name="style_toggle_btn_dark" subject="dark_theme" ref_value="1" />
 
-                        <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                        <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
                             <!-- Expression mode icon (LV_SYMBOL_IMAGE equivalent: 😊) - shown when ai_mode=0 -->
                             <lv_label text="😊">
                                 <style name="style_toggle_icon" />
                                 <bind_style name="style_toggle_icon_dark" subject="dark_theme" ref_value="1" />
-                                <bind_flag_if_eq subject="ai_mode" ref_value="0" flag="hidden" invert="true" />
+                                <bind_flag_if_eq subject="ai_mode" ref_value="1" flag="hidden" />
                             </lv_label>
                             <!-- Dialog mode icon (LV_SYMBOL_LIST equivalent: 💬) - shown when ai_mode=1 -->
                             <lv_label text="💬">
                                 <style name="style_toggle_icon" />
                                 <bind_style name="style_toggle_icon_dark" subject="dark_theme" ref_value="1" />
-                                <bind_flag_if_eq subject="ai_mode" ref_value="1" flag="hidden" invert="true" />
+                                <bind_flag_if_eq subject="ai_mode" ref_value="0" flag="hidden" />
                             </lv_label>
                             <!-- Current mode text -->
                             <lv_label text="Expression" style_text_font="font_12">
                                 <style name="style_toggle_label" />
                                 <bind_style name="style_toggle_label_dark" subject="dark_theme" ref_value="1" />
-                                <bind_flag_if_eq subject="ai_mode" ref_value="0" flag="hidden" invert="true" />
+                                <bind_flag_if_eq subject="ai_mode" ref_value="1" flag="hidden" />
                             </lv_label>
                             <lv_label text="Dialog" style_text_font="font_12">
                                 <style name="style_toggle_label" />
                                 <bind_style name="style_toggle_label_dark" subject="dark_theme" ref_value="1" />
-                                <bind_flag_if_eq subject="ai_mode" ref_value="1" flag="hidden" invert="true" />
+                                <bind_flag_if_eq subject="ai_mode" ref_value="0" flag="hidden" />
                             </lv_label>
-                        </view>
+                        </lv_obj>
                         <!--
                             C code: on click, toggle ai_mode subject (0↔1).
                             When ai_mode changes, screen_ai_main (permanent) resets.
@@ -299,22 +299,22 @@
                         <subject_set_int_event subject="ai_mode" value="1" trigger="clicked">
                         </subject_set_int_event>
                     </lv_button>
-                </view>
-            </view>
+                </lv_obj>
+            </lv_obj>
 
             <!-- ================================================================ -->
             <!-- 3. BRIGHTNESS SETTING                                           -->
             <!-- ================================================================ -->
-            <view flex_flow="column" style_pad_row="#unit_sm">
+            <lv_obj flex_flow="column" style_pad_row="#unit_sm">
                 <style name="style_section" />
                 <bind_style name="style_section_dark" subject="dark_theme" ref_value="1" />
 
-                <view flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
-                    <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                <lv_obj flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+                    <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
                         <!-- Brightness icon (LV_SYMBOL_SETTINGS sun) -->
                         <lv_label text="☀" style_text_font="font_16" />
 
-                        <view flex_flow="column">
+                        <lv_obj flex_flow="column">
                             <lv_label text="Brightness">
                                 <style name="style_section_title" />
                                 <bind_style name="style_section_title_dark" subject="dark_theme" ref_value="1" />
@@ -323,15 +323,15 @@
                                 <style name="style_section_subtitle" />
                                 <bind_style name="style_section_subtitle_dark" subject="dark_theme" ref_value="1" />
                             </lv_label>
-                        </view>
-                    </view>
+                        </lv_obj>
+                    </lv_obj>
 
                     <!-- Brightness value display -->
                     <lv_label bind_text="brightness" bind_text-fmt="%d%%">
                         <style name="style_value_label" />
                         <bind_style name="style_value_label_dark" subject="dark_theme" ref_value="1" />
                     </lv_label>
-                </view>
+                </lv_obj>
 
                 <!-- Brightness slider -->
                 <lv_slider bind_value="brightness" min_value="0" max_value="100" width="100%" height="20">
@@ -341,21 +341,21 @@
                     <bind_style name="style_slider_main_dark" subject="dark_theme" ref_value="1" />
                     <bind_style name="style_slider_knob_dark" subject="dark_theme" ref_value="1" selector="knob" />
                 </lv_slider>
-            </view>
+            </lv_obj>
 
             <!-- ================================================================ -->
             <!-- 4. WIFI SETTING                                                 -->
             <!-- ================================================================ -->
-            <view flex_flow="column" style_pad_row="#unit_sm">
+            <lv_obj flex_flow="column" style_pad_row="#unit_sm">
                 <style name="style_section" />
                 <bind_style name="style_section_dark" subject="dark_theme" ref_value="1" />
 
-                <view flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
-                    <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                <lv_obj flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+                    <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
                         <!-- WiFi icon (LV_SYMBOL_WIFI) -->
                         <lv_label text="📶" style_text_font="font_16" />
 
-                        <view flex_flow="column">
+                        <lv_obj flex_flow="column">
                             <lv_label text="WiFi">
                                 <style name="style_section_title" />
                                 <bind_style name="style_section_title_dark" subject="dark_theme" ref_value="1" />
@@ -364,8 +364,8 @@
                                 <style name="style_section_subtitle" />
                                 <bind_style name="style_section_subtitle_dark" subject="dark_theme" ref_value="1" />
                             </lv_label>
-                        </view>
-                    </view>
+                        </lv_obj>
+                    </lv_obj>
 
                     <!-- WiFi toggle button -->
                     <!-- wifi_on: 0=OFF, 1=ON -->
@@ -373,32 +373,32 @@
                         <style name="style_toggle_btn" />
                         <bind_style name="style_toggle_btn_dark" subject="dark_theme" ref_value="1" />
 
-                        <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                        <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
                             <!-- OFF icon + text (shown when wifi_on=0) -->
                             <lv_label text="📶">
                                 <style name="style_toggle_icon" />
                                 <bind_style name="style_toggle_icon_dark" subject="dark_theme" ref_value="1" />
-                                <bind_flag_if_eq subject="wifi_on" ref_value="0" flag="hidden" invert="true" />
+                                <bind_flag_if_eq subject="wifi_on" ref_value="1" flag="hidden" />
                             </lv_label>
                             <lv_label text="OFF" style_text_font="font_12" style_text_color="0xef4444">
-                                <bind_flag_if_eq subject="wifi_on" ref_value="0" flag="hidden" invert="true" />
+                                <bind_flag_if_eq subject="wifi_on" ref_value="1" flag="hidden" />
                             </lv_label>
                             <!-- ON icon + text (shown when wifi_on=1) -->
                             <lv_label text="📶">
                                 <style name="style_toggle_icon" />
                                 <bind_style name="style_toggle_icon_dark" subject="dark_theme" ref_value="1" />
-                                <bind_flag_if_eq subject="wifi_on" ref_value="1" flag="hidden" invert="true" />
+                                <bind_flag_if_eq subject="wifi_on" ref_value="0" flag="hidden" />
                             </lv_label>
                             <lv_label text="ON" style_text_font="font_12" style_text_color="0x10b981">
-                                <bind_flag_if_eq subject="wifi_on" ref_value="1" flag="hidden" invert="true" />
+                                <bind_flag_if_eq subject="wifi_on" ref_value="0" flag="hidden" />
                             </lv_label>
-                        </view>
+                        </lv_obj>
 
                         <!-- C code: on click, toggle wifi_on subject (0↔1) -->
                         <subject_set_int_event subject="wifi_on" value="1" trigger="clicked" />
                     </lv_button>
-                </view>
-            </view>
+                </lv_obj>
+            </lv_obj>
 
             <!-- ================================================================ -->
             <!-- 5. QR CODE FOR WIFI PROVISIONING                                 -->
@@ -409,7 +409,7 @@
                 so users can scan it with a phone to configure WiFi.
                 The C code should set the data dynamically based on config.
             -->
-            <view flex_flow="column" name="qr_section" style_flex_cross_place="center" style_pad_row="#unit_md">
+            <lv_obj flex_flow="column" name="qr_section" style_flex_cross_place="center" style_pad_row="#unit_md">
                 <style name="style_qr_section" />
                 <bind_style name="style_qr_section_dark" subject="dark_theme" ref_value="1" />
 
@@ -435,7 +435,7 @@
                 <!-- Note: C code should call lv_qrcode_set_data() to update
                      the QR code with actual WiFi provisioning information at runtime.
                      Reference the brookesia WiFi manager pattern. -->
-            </view>
+            </lv_obj>
 
         </lv_obj>
     </view>

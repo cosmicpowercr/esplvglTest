@@ -93,7 +93,7 @@
             border_color="0x1f2937"
             border_width="4"
             border_opa="100%"
-            border_side="1"
+            border_side="bottom"
         />
         <style name="style_mouth_happy_dark"
             border_color="0xf9fafb"
@@ -109,7 +109,7 @@
             border_color="0x1f2937"
             border_width="4"
             border_opa="100%"
-            border_side="4"
+            border_side="top"
         />
         <style name="style_mouth_sad_dark"
             border_color="0xf9fafb"
@@ -181,7 +181,7 @@
             width="100%"
             height="36"
             pad_hor="#unit_md"
-            border_side="1"
+            border_side="bottom"
             border_color="0xe5e7eb"
             border_width="1"
         />
@@ -246,11 +246,11 @@
         <!-- ================================================================ -->
         <!-- EXPRESSION MODE (ai_mode = 0)                                   -->
         <!-- ================================================================ -->
-        <view name="expression_mode_view" flex_flow="column" width="100%" height="100%">
+        <lv_obj name="expression_mode_view" flex_flow="column" width="100%" height="100%">
             <bind_flag_if_eq subject="ai_mode" ref_value="1" flag="hidden" />
 
             <!-- Top bar with settings button -->
-            <view flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+            <lv_obj flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
                 <style name="style_top_bar" />
                 <bind_style name="style_top_bar_dark" subject="dark_theme" ref_value="1" />
 
@@ -260,7 +260,7 @@
                 </lv_label>
 
                 <!-- Music + Settings buttons -->
-                <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
                     <!-- Music button (LV_SYMBOL_AUDIO / music note) -->
                     <lv_button>
                         <style name="style_settings_btn" />
@@ -276,11 +276,11 @@
                         <lv_label text="⚙" style_text_font="font_16" style_text_color="0x6b7280" />
                         <screen_load_event screen="screen_settings" anim_type="move_left" duration="300" />
                     </lv_button>
-                </view>
-            </view>
+                </lv_obj>
+            </lv_obj>
 
             <!-- Face area (centered, flex_grow to push to middle) -->
-            <view name="face_container" flex_flow="column" flex_grow="1" style_flex_main_place="center" style_flex_cross_place="center" style_flex_track_place="center">
+            <lv_obj name="face_container" flex_flow="column" flex_grow="1" style_flex_main_place="center" style_flex_cross_place="center" style_flex_track_place="center">
                 <!-- Face background circle -->
                 <lv_obj name="face_bg">
                     <style name="style_face_bg" />
@@ -300,59 +300,58 @@
 
                     <!-- ====== Mouth Variants (shown/hidden by expression) ====== -->
 
-                    <!-- Neutral mouth (expression=0) -->
+                    <!-- Neutral mouth (expression=0) - shown by default -->
                     <lv_obj name="mouth_neutral" align="center" y="22">
                         <style name="style_mouth_neutral" />
                         <bind_style name="style_mouth_neutral_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="expression" ref_value="0" flag="hidden" invert="true" />
                     </lv_obj>
 
                     <!-- Happy mouth (expression=1) - upward smile arc -->
-                    <lv_obj name="mouth_happy" align="center" y="18">
+                    <lv_obj name="mouth_happy" align="center" y="18" hidden="true">
                         <style name="style_mouth_happy" />
                         <bind_style name="style_mouth_happy_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="expression" ref_value="1" flag="hidden" invert="true" />
+                        <!-- C code manages show/hide based on expression subject -->
                     </lv_obj>
 
                     <!-- Sad mouth (expression=2) - downward frown arc -->
-                    <lv_obj name="mouth_sad" align="center" y="18">
+                    <lv_obj name="mouth_sad" align="center" y="18" hidden="true">
                         <style name="style_mouth_sad" />
                         <bind_style name="style_mouth_sad_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="expression" ref_value="2" flag="hidden" invert="true" />
+                        <!-- C code manages show/hide based on expression subject -->
                     </lv_obj>
 
                     <!-- Thinking mouth (expression=3) - small offset dot -->
-                    <lv_obj name="mouth_thinking" align="center" x="10" y="25">
+                    <lv_obj name="mouth_thinking" align="center" x="10" y="25" hidden="true">
                         <style name="style_mouth_thinking" />
                         <bind_style name="style_mouth_thinking_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="expression" ref_value="3" flag="hidden" invert="true" />
+                        <!-- C code manages show/hide based on expression subject -->
                     </lv_obj>
 
                     <!-- Speaking mouth (expression=4) - open circle -->
-                    <lv_obj name="mouth_speaking" align="center" y="25">
+                    <lv_obj name="mouth_speaking" align="center" y="25" hidden="true">
                         <style name="style_mouth_speaking" />
                         <bind_style name="style_mouth_speaking_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="expression" ref_value="4" flag="hidden" invert="true" />
+                        <!-- C code manages show/hide based on expression subject -->
                     </lv_obj>
 
                     <!-- Surprised mouth (expression=5) - big open circle -->
-                    <lv_obj name="mouth_surprised" align="center" y="26">
+                    <lv_obj name="mouth_surprised" align="center" y="26" hidden="true">
                         <style name="style_mouth_surprised" />
                         <bind_style name="style_mouth_surprised_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="expression" ref_value="5" flag="hidden" invert="true" />
+                        <!-- C code manages show/hide based on expression subject -->
                     </lv_obj>
 
                     <!-- Listening mouth (expression=6) - slight smile -->
-                    <lv_obj name="mouth_listening" align="center" y="22">
+                    <lv_obj name="mouth_listening" align="center" y="22" hidden="true">
                         <style name="style_mouth_listening" />
                         <bind_style name="style_mouth_listening_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="expression" ref_value="6" flag="hidden" invert="true" />
+                        <!-- C code manages show/hide based on expression subject -->
                     </lv_obj>
                 </lv_obj>
-            </view>
+            </lv_obj>
 
             <!-- Bottom hint / status text -->
-            <view width="100%" style_flex_track_place="center" style_pad_ver="#unit_md">
+            <lv_obj width="100%" style_flex_track_place="center" style_pad_ver="#unit_md">
                 <lv_label
                     text="Tap to talk"
                     style_text_font="font_12"
@@ -362,17 +361,17 @@
                 >
                     <bind_style name="style_status_text_dark" subject="dark_theme" ref_value="1" />
                 </lv_label>
-            </view>
-        </view>
+            </lv_obj>
+        </lv_obj>
 
         <!-- ================================================================ -->
         <!-- DIALOG MODE (ai_mode = 1)                                       -->
         <!-- ================================================================ -->
-        <view name="dialog_mode_view" flex_flow="column" width="100%" height="100%">
+        <lv_obj name="dialog_mode_view" flex_flow="column" width="100%" height="100%">
             <bind_flag_if_eq subject="ai_mode" ref_value="0" flag="hidden" />
 
             <!-- Top bar -->
-            <view flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+            <lv_obj flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
                 <style name="style_dialog_top_bar" />
                 <bind_style name="style_dialog_top_bar_dark" subject="dark_theme" ref_value="1" />
 
@@ -381,7 +380,7 @@
                 </lv_label>
 
                 <!-- Music + Settings buttons -->
-                <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
+                <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm">
                     <!-- Music button -->
                     <lv_button>
                         <style name="style_settings_btn" />
@@ -397,8 +396,8 @@
                         <lv_label text="⚙" style_text_font="font_16" style_text_color="0x6b7280" />
                         <screen_load_event screen="screen_settings" anim_type="move_left" duration="300" />
                     </lv_button>
-                </view>
-            </view>
+                </lv_obj>
+            </lv_obj>
 
             <!-- Scrollable chat area (messages populated by C code at runtime) -->
             <!--
@@ -450,6 +449,6 @@
                     </view>
                 -->
             </lv_obj>
-        </view>
+        </lv_obj>
     </view>
 </screen>

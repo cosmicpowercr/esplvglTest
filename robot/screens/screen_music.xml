@@ -180,7 +180,7 @@
         <bind_style name="style_screen_dark" subject="dark_theme" ref_value="1" />
 
         <!-- ====== Top Navigation Bar ====== -->
-        <view flex_flow="row" width="100%" style_flex_main_place="start" style_flex_cross_place="center">
+        <lv_obj flex_flow="row" width="100%" style_flex_main_place="start" style_flex_cross_place="center">
             <style name="style_top_bar" />
             <bind_style name="style_top_bar_dark" subject="dark_theme" ref_value="1" />
 
@@ -196,10 +196,10 @@
             <lv_label text="Local Music" style_text_font="font_16" style_text_color="0x374151" style_pad_left="#unit_sm">
                 <bind_style name="style_control_text_dark" subject="dark_theme" ref_value="1" />
             </lv_label>
-        </view>
+        </lv_obj>
 
         <!-- ====== Control Bar: Sort Order + Play Mode ====== -->
-        <view flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+        <lv_obj flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
             <style name="style_control_bar" />
             <bind_style name="style_control_bar_dark" subject="dark_theme" ref_value="1" />
 
@@ -209,29 +209,29 @@
                 <style name="style_control_btn" />
                 <bind_style name="style_control_btn_dark" subject="dark_theme" ref_value="1" />
 
-                <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_xs">
+                <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_xs">
                     <!-- Sequential icon (LV_SYMBOL_LIST) - shown when sort_order=0 -->
                     <lv_label text="📋">
                         <style name="style_control_icon" />
                         <bind_style name="style_control_icon_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="sort_order" ref_value="0" flag="hidden" invert="true" />
+                        <bind_flag_if_eq subject="sort_order" ref_value="1" flag="hidden" />
                     </lv_label>
                     <!-- Random icon (LV_SYMBOL_SHUFFLE) - shown when sort_order=1 -->
                     <lv_label text="🔀">
                         <style name="style_control_icon" />
                         <bind_style name="style_control_icon_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="sort_order" ref_value="1" flag="hidden" invert="true" />
+                        <bind_flag_if_eq subject="sort_order" ref_value="0" flag="hidden" />
                     </lv_label>
                     <!-- Label -->
                     <lv_label text="Seq" style_text_font="font_10" style_text_color="0x374151">
                         <bind_style name="style_control_text_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="sort_order" ref_value="0" flag="hidden" invert="true" />
+                        <bind_flag_if_eq subject="sort_order" ref_value="1" flag="hidden" />
                     </lv_label>
                     <lv_label text="Rand" style_text_font="font_10" style_text_color="0x374151">
                         <bind_style name="style_control_text_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="sort_order" ref_value="1" flag="hidden" invert="true" />
+                        <bind_flag_if_eq subject="sort_order" ref_value="0" flag="hidden" />
                     </lv_label>
-                </view>
+                </lv_obj>
 
                 <!-- Click toggles sort_order between 0 and 1 -->
                 <!-- C code: handle the toggle logic -->
@@ -244,37 +244,37 @@
                 <style name="style_control_btn" />
                 <bind_style name="style_control_btn_dark" subject="dark_theme" ref_value="1" />
 
-                <view flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_xs">
+                <lv_obj flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_xs">
                     <!-- Single Repeat icon (LV_SYMBOL_LOOP) - shown when play_mode=0 -->
                     <lv_label text="🔂">
                         <style name="style_control_icon" />
                         <bind_style name="style_control_icon_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="play_mode" ref_value="0" flag="hidden" invert="true" />
+                        <bind_flag_if_eq subject="play_mode" ref_value="1" flag="hidden" />
                     </lv_label>
                     <!-- List Play icon (LV_SYMBOL_REFRESH) - shown when play_mode=1 -->
                     <lv_label text="🔁">
                         <style name="style_control_icon" />
                         <bind_style name="style_control_icon_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="play_mode" ref_value="1" flag="hidden" invert="true" />
+                        <bind_flag_if_eq subject="play_mode" ref_value="0" flag="hidden" />
                     </lv_label>
                     <!-- Label -->
                     <lv_label text="Single" style_text_font="font_10" style_text_color="0x374151">
                         <bind_style name="style_control_text_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="play_mode" ref_value="0" flag="hidden" invert="true" />
+                        <bind_flag_if_eq subject="play_mode" ref_value="1" flag="hidden" />
                     </lv_label>
                     <lv_label text="List" style_text_font="font_10" style_text_color="0x374151">
                         <bind_style name="style_control_text_dark" subject="dark_theme" ref_value="1" />
-                        <bind_flag_if_eq subject="play_mode" ref_value="1" flag="hidden" invert="true" />
+                        <bind_flag_if_eq subject="play_mode" ref_value="0" flag="hidden" />
                     </lv_label>
-                </view>
+                </lv_obj>
 
                 <!-- Click toggles play_mode between 0 and 1 -->
                 <subject_set_int_event subject="play_mode" value="1" trigger="clicked" />
             </lv_button>
-        </view>
+        </lv_obj>
 
         <!-- ====== Now Playing Indicator ====== -->
-        <view name="now_playing_bar" flex_flow="row" width="100%" style_flex_cross_place="center" style_pad_column="#unit_sm">
+        <lv_obj name="now_playing_bar" flex_flow="row" width="100%" style_flex_cross_place="center" style_pad_column="#unit_sm">
             <style name="style_now_playing_bar" />
             <bind_style name="style_now_playing_bar_dark" subject="dark_theme" ref_value="1" />
 
@@ -286,7 +286,7 @@
                 <style name="style_now_playing_text" />
                 <bind_style name="style_now_playing_text_dark" subject="dark_theme" ref_value="1" />
             </lv_label>
-        </view>
+        </lv_obj>
 
         <!-- ====== Scrollable Song List ====== -->
         <!--
@@ -338,7 +338,7 @@
                  based on actual SD card contents. -->
 
             <!-- Song 1 (selected/playing) -->
-            <view name="song_item_0" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+            <lv_obj name="song_item_0" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
                 <style name="style_song_item" />
                 <style name="style_song_item_selected" />
                 <bind_style name="style_song_item_dark" subject="dark_theme" ref_value="1" />
@@ -350,57 +350,57 @@
                     <style name="style_playing_indicator" />
                     <bind_style name="style_playing_indicator_dark" subject="dark_theme" ref_value="1" />
                 </lv_label>
-            </view>
+            </lv_obj>
 
             <!-- Song 2 -->
-            <view name="song_item_1" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+            <lv_obj name="song_item_1" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
                 <style name="style_song_item" />
                 <bind_style name="style_song_item_dark" subject="dark_theme" ref_value="1" />
                 <lv_label text="02_ocean_waves.mp3">
                     <style name="style_song_name" />
                     <bind_style name="style_song_name_dark" subject="dark_theme" ref_value="1" />
                 </lv_label>
-            </view>
+            </lv_obj>
 
             <!-- Song 3 -->
-            <view name="song_item_2" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+            <lv_obj name="song_item_2" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
                 <style name="style_song_item" />
                 <bind_style name="style_song_item_dark" subject="dark_theme" ref_value="1" />
                 <lv_label text="03_forest_rain.mp3">
                     <style name="style_song_name" />
                     <bind_style name="style_song_name_dark" subject="dark_theme" ref_value="1" />
                 </lv_label>
-            </view>
+            </lv_obj>
 
             <!-- Song 4 -->
-            <view name="song_item_3" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+            <lv_obj name="song_item_3" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
                 <style name="style_song_item" />
                 <bind_style name="style_song_item_dark" subject="dark_theme" ref_value="1" />
                 <lv_label text="04_jazz_cafe.mp3">
                     <style name="style_song_name" />
                     <bind_style name="style_song_name_dark" subject="dark_theme" ref_value="1" />
                 </lv_label>
-            </view>
+            </lv_obj>
 
             <!-- Song 5 -->
-            <view name="song_item_4" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+            <lv_obj name="song_item_4" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
                 <style name="style_song_item" />
                 <bind_style name="style_song_item_dark" subject="dark_theme" ref_value="1" />
                 <lv_label text="05_deep_focus.mp3">
                     <style name="style_song_name" />
                     <bind_style name="style_song_name_dark" subject="dark_theme" ref_value="1" />
                 </lv_label>
-            </view>
+            </lv_obj>
 
             <!-- Song 6 -->
-            <view name="song_item_5" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
+            <lv_obj name="song_item_5" flex_flow="row" width="100%" style_flex_main_place="space_between" style_flex_cross_place="center">
                 <style name="style_song_item" />
                 <bind_style name="style_song_item_dark" subject="dark_theme" ref_value="1" />
                 <lv_label text="06_night_drive.mp3">
                     <style name="style_song_name" />
                     <bind_style name="style_song_name_dark" subject="dark_theme" ref_value="1" />
                 </lv_label>
-            </view>
+            </lv_obj>
 
         </lv_obj>
     </view>
