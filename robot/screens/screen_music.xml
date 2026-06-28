@@ -32,10 +32,24 @@
         <!-- Back button -->
         <style name="style_back_btn"
             bg_opa="0%"
-            radius="#unit_md"
+            radius="1000"
             pad_all="#unit_sm"
             width="32"
             height="32"
+            text_color="0x9ca3af"
+            text_font="font_16"
+        />
+        <style name="style_back_btn_dark"
+            text_color="0xd1d5db"
+        />
+
+        <!-- Title style -->
+        <style name="style_page_title"
+            text_font="font_16"
+            text_color="0x374151"
+        />
+        <style name="style_page_title_dark"
+            text_color="0xf9fafb"
         />
 
         <!-- Control bar (sort + play mode buttons) -->
@@ -50,39 +64,39 @@
             bg_color="0x16213e"
         />
 
-        <!-- Small control button -->
+        <!-- Control button -->
         <style name="style_control_btn"
-            bg_color="0xf3f4f6"
+            bg_color="0xf1f5f9"
             bg_opa="100%"
-            radius="#unit_sm"
-            pad_hor="#unit_sm"
+            radius="1000"
+            pad_hor="#unit_md"
             pad_ver="4"
             width="content"
             height="30"
-            border_color="0xd1d5db"
+            border_color="0xe2e8f0"
             border_width="1"
         />
         <style name="style_control_btn_dark"
-            bg_color="0x374151"
-            border_color="0x4b5563"
+            bg_color="0x1e293b"
+            border_color="0x334155"
         />
 
         <!-- Control button text -->
         <style name="style_control_text"
             text_font="font_10"
-            text_color="0x374151"
+            text_color="0x475569"
         />
         <style name="style_control_text_dark"
-            text_color="0xf9fafb"
+            text_color="0xe2e8f0"
         />
 
         <!-- Control button icon -->
         <style name="style_control_icon"
             text_font="font_14"
-            text_color="0x374151"
+            text_color="0x475569"
         />
         <style name="style_control_icon_dark"
-            text_color="0xf9fafb"
+            text_color="0xe2e8f0"
         />
 
         <!-- Currently playing info bar -->
@@ -91,7 +105,8 @@
             bg_opa="100%"
             width="100%"
             pad_hor="#unit_md"
-            pad_ver="#unit_xs"
+            pad_ver="#unit_sm"
+            radius="#unit_sm"
         />
         <style name="style_now_playing_bar_dark"
             bg_color="0x1e3a5f"
@@ -126,10 +141,13 @@
             pad_hor="#unit_md"
             pad_ver="#unit_sm"
             radius="#unit_sm"
-            border_width="0"
+            shadow_width="2"
+            shadow_offset_y="1"
+            shadow_opa="8%"
         />
         <style name="style_song_item_dark"
-            bg_color="0x16213e"
+            bg_color="0x1e293b"
+            shadow_opa="15%"
         />
 
         <!-- Song item (selected/highlighted) -->
@@ -184,17 +202,17 @@
             <style name="style_top_bar" />
             <bind_style name="style_top_bar_dark" subject="dark_theme" ref_value="1" />
 
-            <!-- Back button (LV_SYMBOL_LEFT) -->
+            <!-- Back button -->
             <lv_button>
                 <style name="style_back_btn" />
-                <lv_label text="←" style_text_font="font_16" style_text_color="0x374151">
-                    <bind_style name="style_control_icon_dark" subject="dark_theme" ref_value="1" />
-                </lv_label>
+                <bind_style name="style_back_btn_dark" subject="dark_theme" ref_value="1" />
+                <lv_label text="←" style_text_font="font_16" style_text_color="0x9ca3af" />
                 <screen_load_event screen="screen_ai_main" anim_type="move_right" duration="300" />
             </lv_button>
 
-            <lv_label text="Local Music" style_text_font="font_16" style_text_color="0x374151" style_pad_left="#unit_sm">
-                <bind_style name="style_control_text_dark" subject="dark_theme" ref_value="1" />
+            <lv_label text="Local Music" style_pad_left="#unit_sm">
+                <style name="style_page_title" />
+                <bind_style name="style_page_title_dark" subject="dark_theme" ref_value="1" />
             </lv_label>
         </lv_obj>
 

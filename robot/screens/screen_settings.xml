@@ -29,23 +29,41 @@
         <!-- Back button -->
         <style name="style_back_btn"
             bg_opa="0%"
-            radius="#unit_md"
+            radius="1000"
             pad_all="#unit_sm"
             width="32"
             height="32"
+            text_color="0x9ca3af"
+            text_font="font_16"
+        />
+        <style name="style_back_btn_dark"
+            text_color="0xd1d5db"
         />
 
-        <!-- Section container -->
+        <!-- Page title -->
+        <style name="style_page_title"
+            text_font="font_16"
+            text_color="0x374151"
+        />
+        <style name="style_page_title_dark"
+            text_color="0xf9fafb"
+        />
+
+        <!-- Section card -->
         <style name="style_section"
             bg_color="0xffffff"
             bg_opa="100%"
             width="100%"
             pad_hor="#unit_md"
             pad_ver="#unit_sm"
-            radius="#unit_sm"
+            radius="#unit_md"
+            shadow_width="2"
+            shadow_offset_y="1"
+            shadow_opa="6%"
         />
         <style name="style_section_dark"
-            bg_color="0x16213e"
+            bg_color="0x1e293b"
+            shadow_opa="15%"
         />
 
         <!-- Section title -->
@@ -108,21 +126,21 @@
             border_color="0x60a5fa"
         />
 
-        <!-- Toggle button style -->
+        <!-- Toggle button -->
         <style name="style_toggle_btn"
-            bg_color="0xf3f4f6"
+            bg_color="0xf1f5f9"
             bg_opa="100%"
-            radius="#unit_md"
+            radius="1000"
             pad_hor="#unit_lg"
             pad_ver="#unit_sm"
             width="content"
             height="content"
-            border_color="0xd1d5db"
+            border_color="0xe2e8f0"
             border_width="1"
         />
         <style name="style_toggle_btn_dark"
-            bg_color="0x374151"
-            border_color="0x4b5563"
+            bg_color="0x1e293b"
+            border_color="0x334155"
         />
 
         <!-- Toggle button icon text -->
@@ -149,10 +167,14 @@
             bg_opa="100%"
             width="100%"
             pad_all="#unit_md"
-            radius="#unit_sm"
+            radius="#unit_md"
+            shadow_width="2"
+            shadow_offset_y="1"
+            shadow_opa="6%"
         />
         <style name="style_qr_section_dark"
-            bg_color="0x16213e"
+            bg_color="0x1e293b"
+            shadow_opa="15%"
         />
 
         <style name="style_qr_hint"
@@ -175,17 +197,17 @@
             <style name="style_top_bar" />
             <bind_style name="style_top_bar_dark" subject="dark_theme" ref_value="1" />
 
-            <!-- Back button (LV_SYMBOL_LEFT arrow) -->
+            <!-- Back button -->
             <lv_button>
                 <style name="style_back_btn" />
-                <lv_label text="←" style_text_font="font_16" style_text_color="0x374151">
-                    <bind_style name="style_toggle_icon_dark" subject="dark_theme" ref_value="1" />
-                </lv_label>
+                <bind_style name="style_back_btn_dark" subject="dark_theme" ref_value="1" />
+                <lv_label text="←" style_text_font="font_16" style_text_color="0x9ca3af" />
                 <screen_load_event screen="screen_ai_main" anim_type="move_right" duration="300" />
             </lv_button>
 
-            <lv_label text="Settings" style_text_font="font_16" style_text_color="0x374151" style_pad_left="#unit_sm">
-                <bind_style name="style_section_title_dark" subject="dark_theme" ref_value="1" />
+            <lv_label text="Settings" style_pad_left="#unit_sm">
+                <style name="style_page_title" />
+                <bind_style name="style_page_title_dark" subject="dark_theme" ref_value="1" />
             </lv_label>
         </lv_obj>
 
