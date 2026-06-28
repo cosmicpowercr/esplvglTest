@@ -9,21 +9,33 @@
 -->
 <screen>
     <styles>
+        <style name="style_root"
+            bg_color="#bg_screen" text_color="#text_primary"
+            layout="flex" flex_flow="column"
+            width="100%" height="100%"
+        />
+        <style name="style_flex_row_center"
+            layout="flex" flex_flow="row"
+            flex_cross_place="center"
+        />
         <style name="style_content_scroll"
             bg_opa="0"
             width="100%"
             flex_grow="1"
-            pad_hor="11"
-            pad_ver="#unit_md"
+            pad_hor="11" pad_ver="#unit_md"
         />
         <style name="style_card_row"
-            bg_opa="0"
-            width="100%" height="90"
+            layout="flex" flex_flow="row"
+            flex_cross_place="center"
+            flex_main_place="space_between"
+            bg_color="#bg_card" bg_opa="100%"
+            radius="12"
+            pad_all="#unit_md"
+            width="218" height="90"
         />
-        <style name="style_card_icon"
-            width="40" height="40"
-            style_image_recolor="#text_secondary"
-            style_image_recolor_opa="100%"
+        <style name="style_icon_circle"
+            bg_color="#bg_slider_track" bg_opa="30%"
+            width="40" height="40" radius="20"
         />
         <style name="style_card_label"
             text_font="font_14"
@@ -33,26 +45,15 @@
             text_font="font_12"
             text_color="#text_secondary"
         />
-        <style name="style_value_label"
-            text_font="font_14"
-            text_color="#text_primary"
-            width="40"
-            style_text_align="right"
-        />
-        <style name="style_qr_hint"
-            text_font="font_12"
-            text_color="#text_secondary"
-            style_text_align="center"
-            width="200"
-        />
     </styles>
 
-    <view flex_flow="column" width="100%" height="100%">
-        <style name="style_screen" />
+    <view>
+        <style name="style_root" />
 
         <!-- ====== Fixed Top Nav Bar (48px) ====== -->
-        <view name="nav_bar" flex_flow="row" style_flex_cross_place="center">
+        <lv_obj name="nav_bar">
             <style name="style_nav_bar" />
+            <style name="style_flex_row_center" />
 
             <!-- Home button -->
             <lv_button width="44" height="44" style_bg_opa="0" style_border_width="0" style_radius="8">
@@ -61,24 +62,23 @@
                 <screen_load_event screen="screen_ai_main" anim_type="none" />
             </lv_button>
 
-            <!-- Title -->
+            <!-- Title (centered, fills remaining space) -->
             <lv_label text="设置" style_text_font="font_16" style_text_color="#text_primary"
                 flex_grow="1" style_text_align="center" />
-        </view>
+        </lv_obj>
 
         <!-- ====== Scrollable Content Area ====== -->
-        <view name="content_scroll" flex_flow="column" scrollable="true"
-              scroll_momentum="true">
+        <lv_obj name="content_scroll" flex_flow="column" style_layout="flex" scrollable="true"
+                scroll_momentum="true">
             <style name="style_content_scroll" />
 
             <!-- ====== Card 1: Volume ====== -->
-            <view name="card_volume" flex_flow="row" style_flex_cross_place="center"
-                  style_flex_main_place="space_between">
-                <style name="style_card" />
+            <lv_obj name="card_volume">
+                <style name="style_card_row" />
 
                 <!-- Music note icon (40x40 circle) -->
-                <lv_obj width="40" height="40" radius="20"
-                    style_bg_color="#bg_slider_track" style_bg_opa="30%">
+                <lv_obj>
+                    <style name="style_icon_circle" />
                     <lv_label text="♪" style_text_font="font_16" style_text_color="#accent_primary"
                         align="center" width="100%" height="100%" />
                 </lv_obj>
@@ -96,21 +96,21 @@
                 </lv_slider>
 
                 <!-- Value display -->
-                <lv_label bind_text="volume" bind_text-fmt="%d%%" style_text_font="font_14"
-                    style_text_color="#text_primary" width="36" style_text_align="right" />
-            </view>
+                <lv_label bind_text="volume" bind_text-fmt="%d%%"
+                    style_text_font="font_14" style_text_color="#text_primary"
+                    width="36" style_text_align="right" />
+            </lv_obj>
 
             <!-- Spacer between cards -->
             <lv_obj height="10" style_bg_opa="0" />
 
             <!-- ====== Card 2: Brightness ====== -->
-            <view name="card_brightness" flex_flow="row" style_flex_cross_place="center"
-                  style_flex_main_place="space_between">
-                <style name="style_card" />
+            <lv_obj name="card_brightness">
+                <style name="style_card_row" />
 
                 <!-- Sun icon (40x40 circle) -->
-                <lv_obj width="40" height="40" radius="20"
-                    style_bg_color="#bg_slider_track" style_bg_opa="30%">
+                <lv_obj>
+                    <style name="style_icon_circle" />
                     <lv_label text="☀" style_text_font="font_16" style_text_color="#accent_primary"
                         align="center" width="100%" height="100%" />
                 </lv_obj>
@@ -128,21 +128,21 @@
                 </lv_slider>
 
                 <!-- Value display -->
-                <lv_label bind_text="brightness" bind_text-fmt="%d%%" style_text_font="font_14"
-                    style_text_color="#text_primary" width="36" style_text_align="right" />
-            </view>
+                <lv_label bind_text="brightness" bind_text-fmt="%d%%"
+                    style_text_font="font_14" style_text_color="#text_primary"
+                    width="36" style_text_align="right" />
+            </lv_obj>
 
             <!-- Spacer -->
             <lv_obj height="10" style_bg_opa="0" />
 
             <!-- ====== Card 3: AI Mode Switch ====== -->
-            <view name="card_mode" flex_flow="row" style_flex_cross_place="center"
-                  style_flex_main_place="space_between" clickable="true">
-                <style name="style_card" />
+            <lv_obj name="card_mode" clickable="true">
+                <style name="style_card_row" />
 
                 <!-- Mode icon -->
-                <lv_obj width="40" height="40" radius="20"
-                    style_bg_color="#bg_slider_track" style_bg_opa="30%">
+                <lv_obj>
+                    <style name="style_icon_circle" />
                     <lv_label text="🔄" style_text_font="font_16" style_text_color="#accent_primary"
                         align="center" width="100%" height="100%" />
                 </lv_obj>
@@ -158,28 +158,28 @@
                 <!-- Right arrow -->
                 <lv_label text="›" style_text_font="font_20" style_text_color="#text_secondary" />
                 <!-- Mode toggling handled by C code via LV_EVENT_CLICKED callback -->
-            </view>
+            </lv_obj>
 
             <!-- Spacer -->
             <lv_obj height="10" style_bg_opa="0" />
 
             <!-- ====== Card 4: WiFi Settings ====== -->
-            <view name="card_wifi" flex_flow="row" style_flex_cross_place="center"
-                  style_flex_main_place="space_between">
-                <style name="style_card" />
+            <lv_obj name="card_wifi">
+                <style name="style_card_row" />
 
                 <!-- WiFi icon (40x40 circle) -->
-                <lv_obj width="40" height="40" radius="20"
-                    style_bg_color="#bg_slider_track" style_bg_opa="30%">
+                <lv_obj>
+                    <style name="style_icon_circle" />
                     <lv_label text="📶" style_text_font="font_16" style_text_color="#accent_primary"
                         align="center" width="100%" height="100%" />
                 </lv_obj>
 
-                <!-- WiFi info -->
-                <view flex_flow="column" style_flex_cross_place="start" flex_grow="1" pad_left="#unit_sm">
+                <!-- WiFi info (column) -->
+                <lv_obj flex_grow="1" style_pad_left="#unit_sm"
+                        style_flex_flow="column" style_layout="flex" style_flex_cross_place="start">
                     <lv_label text="WiFi 设置" style_text_font="font_14" style_text_color="#text_primary" />
                     <lv_label text="已连接: Brookesia_2.4G" style_text_font="font_12" style_text_color="#text_secondary" />
-                </view>
+                </lv_obj>
 
                 <!-- Switch -->
                 <lv_switch bind_checked="wifi_on" width="48" height="28">
@@ -187,7 +187,7 @@
                     <style name="style_switch_indicator_checked" selector="indicator|checked" />
                     <style name="style_switch_knob" selector="knob" />
                 </lv_switch>
-            </view>
+            </lv_obj>
 
             <!-- ====== QR Code Area (at bottom of scroll) ====== -->
             <lv_obj height="20" style_bg_opa="0" />
@@ -215,6 +215,6 @@
 
             <!-- Bottom padding for scroll -->
             <lv_obj height="#unit_md" style_bg_opa="0" />
-        </view>
+        </lv_obj>
     </view>
 </screen>

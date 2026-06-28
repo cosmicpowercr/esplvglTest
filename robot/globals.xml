@@ -129,14 +129,14 @@
             bg_color="#accent_primary" bg_opa="100%"
         />
         <style name="style_switch_knob"
-            bg_color="#FFFFFF" bg_opa="100%"
+            bg_color="0xFFFFFF" bg_opa="100%"
             pad_all="2"
         />
 
         <!-- Music play mode button (active) -->
         <style name="style_mode_btn_active"
             bg_color="#accent_primary" bg_opa="100%"
-            text_color="#FFFFFF"
+            text_color="0xFFFFFF"
             radius="8"
         />
         <style name="style_mode_btn_inactive"

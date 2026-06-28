@@ -19,27 +19,27 @@
         <!-- User bubble style (right-aligned, blue) -->
         <style name="style_user_bubble"
             bg_color="#bg_bubble_user" bg_opa="100%"
-            text_color="#FFFFFF"
+            text_color="0xFFFFFF"
+            text_font="font_12"
             radius="#unit_md"
             pad_hor="#unit_md"
             pad_ver="#unit_sm"
             width="content"
             max_width="180"
             height="content"
-            text_font="font_12"
         />
 
         <!-- AI bubble style (left-aligned, dark gray) -->
         <style name="style_ai_bubble"
             bg_color="#bg_bubble_ai" bg_opa="100%"
-            text_color="#FFFFFF"
+            text_color="0xFFFFFF"
+            text_font="font_12"
             radius="#unit_md"
             pad_hor="#unit_md"
             pad_ver="#unit_sm"
             width="content"
             max_width="180"
             height="content"
-            text_font="font_12"
         />
     </styles>
 
@@ -47,7 +47,8 @@
         <!-- AI message: left-aligned -->
         <lv_label
             text="$message"
-            align="left"
+            align="left_mid"
+            style_text_align="left"
         >
             <style name="style_ai_bubble" />
         </lv_label>
@@ -55,7 +56,8 @@
         <!-- User message: right-aligned -->
         <lv_label
             text="$message"
-            align="right"
+            align="right_mid"
+            style_text_align="right"
         >
             <style name="style_user_bubble" />
         </lv_label>
