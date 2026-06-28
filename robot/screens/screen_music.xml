@@ -1,0 +1,133 @@
+<!--
+    Music Player Page
+    240x240 local music (SD card MP3) player.
+    - Play mode controls: 2x2 grid (sequential/random, single/list repeat)
+    - Scrollable song list (items created by C code)
+    - Bottom hint bar
+    Entry: Swipe right from Settings Page
+    Exit: Home button → AI Main Page (stops playback), or swipe left → Settings
+-->
+<screen>
+    <styles>
+        <style name="style_controls_area"
+            bg_opa="0"
+            width="100%" height="64"
+            pad_hor="#unit_md"
+        />
+        <style name="style_mode_btn"
+            width="48%" height="28"
+            radius="8"
+            style_pad_all="#unit_xs"
+        />
+        <style name="style_mode_btn_label"
+            text_font="font_12"
+            style_text_align="center"
+        />
+        <style name="style_song_list"
+            bg_opa="0"
+            width="100%"
+            flex_grow="1"
+            pad_hor="11"
+        />
+        <style name="style_song_label_placeholder"
+            text_font="font_14"
+            text_color="#text_secondary"
+            style_text_align="center"
+        />
+    </styles>
+
+    <view flex_flow="column" width="100%" height="100%">
+        <style name="style_screen" />
+
+        <!-- ====== Fixed Top Nav Bar (48px) ====== -->
+        <view name="nav_bar" flex_flow="row" style_flex_cross_place="center">
+            <style name="style_nav_bar" />
+
+            <!-- Home button (stops playback when returning) -->
+            <lv_button width="44" height="44" style_bg_opa="0" style_border_width="0" style_radius="8">
+                <lv_label text="⌂" style_text_font="font_20" style_text_color="#text_primary"
+                    align="center" width="100%" />
+                <screen_load_event screen="screen_ai_main" anim_type="none" />
+            </lv_button>
+
+            <!-- Title -->
+            <lv_label text="本地音乐" style_text_font="font_16" style_text_color="#text_primary"
+                flex_grow="1" style_text_align="center" />
+        </view>
+
+        <!-- ====== Play Mode Controls (64px, 2x2 grid) ====== -->
+        <view name="play_controls" flex_flow="row_wrap"
+              style_flex_main_place="space_evenly" style_flex_cross_place="center"
+              style_pad_row="#unit_sm">
+            <style name="style_controls_area" />
+
+            <!-- Row 1, Left: 列表正序 (active when sort_order=0) -->
+            <lv_button width="48%" height="28" radius="8" style_pad_all="#unit_xs">
+                <style name="style_mode_btn_inactive" />
+                <bind_style name="style_mode_btn_active" subject="sort_order" ref_value="0" />
+                <lv_label text="📋 列表正序" style_text_font="font_12" style_text_align="center" width="100%" />
+                <subject_set_int_event subject="sort_order" value="0" />
+            </lv_button>
+
+            <!-- Row 1, Right: 随机列表 (active when sort_order=1) -->
+            <lv_button width="48%" height="28" radius="8" style_pad_all="#unit_xs">
+                <style name="style_mode_btn_inactive" />
+                <bind_style name="style_mode_btn_active" subject="sort_order" ref_value="1" />
+                <lv_label text="🔀 随机列表" style_text_font="font_12" style_text_align="center" width="100%" />
+                <subject_set_int_event subject="sort_order" value="1" />
+            </lv_button>
+
+            <!-- Row 2, Left: 单曲循环 (active when play_mode=0) -->
+            <lv_button width="48%" height="28" radius="8" style_pad_all="#unit_xs">
+                <style name="style_mode_btn_inactive" />
+                <bind_style name="style_mode_btn_active" subject="play_mode" ref_value="0" />
+                <lv_label text="🔂 单曲循环" style_text_font="font_12" style_text_align="center" width="100%" />
+                <subject_set_int_event subject="play_mode" value="0" />
+            </lv_button>
+
+            <!-- Row 2, Right: 列表循环 (active when play_mode=1) -->
+            <lv_button width="48%" height="28" radius="8" style_pad_all="#unit_xs">
+                <style name="style_mode_btn_inactive" />
+                <bind_style name="style_mode_btn_active" subject="play_mode" ref_value="1" />
+                <lv_label text="🔁 列表循环" style_text_font="font_12" style_text_align="center" width="100%" />
+                <subject_set_int_event subject="play_mode" value="1" />
+            </lv_button>
+        </view>
+
+        <!-- Spacer -->
+        <lv_obj height="#unit_sm" style_bg_opa="0" />
+
+        <!-- ====== Song List (scrollable, fills remaining space) ====== -->
+        <view name="song_list_container" flex_flow="column" scrollable="true"
+              scroll_momentum="true" scroll_elastic="true">
+            <style name="style_song_list" />
+
+            <!-- Placeholder text when no songs loaded -->
+            <lv_label
+                name="song_list_placeholder"
+                text="暂无歌曲"
+                align="center"
+                width="100%"
+                style_text_font="font_14"
+                style_text_color="#text_secondary"
+                style_text_align="center"
+            />
+            <!-- Song items are created dynamically by C code as children of song_list_container.
+                 Each item uses the music_item component.
+                 Highlighted item shown with bg_item_highlight + blue border.
+                 Scroll-stop-3s auto-play logic handled by C code. -->
+        </view>
+
+        <!-- ====== Bottom Hint (26px fixed) ====== -->
+        <view name="bottom_hint" flex_flow="row" style_flex_cross_place="center" style_flex_main_place="center">
+            <style name="style_bottom_hint" />
+            <lv_label
+                text="滑动列表，停止 3 秒后播放选中歌曲"
+                style_text_font="font_10"
+                style_text_color="0x6B7A8F"
+                style_text_align="center"
+                width="100%"
+            />
+        </view>
+    </view>
+</screen>

@@ -1,0 +1,157 @@
+<!--
+    AI Main Page (Permanent)
+    240x240 screen with two modes:
+    - Expression Mode (ai_mode=0): 160x160 animated face + emotion icons
+    - Dialog Mode (ai_mode=1): scrollable chat bubble list
+    Always stays in memory — state persists across page switches.
+-->
+<screen permanent="true">
+    <styles>
+        <style name="style_status_bar"
+            bg_opa="0"
+            width="100%" height="32"
+            pad_hor="#unit_md"
+        />
+        <style name="style_status_text"
+            text_font="font_12"
+            text_color="#text_primary"
+        />
+        <style name="style_core_area"
+            width="100%"
+            flex_grow="1"
+        />
+        <style name="style_bottom_area"
+            bg_opa="0"
+            width="100%" height="56"
+            pad_hor="#unit_md"
+            pad_bottom="#unit_sm"
+        />
+        <style name="style_hint_text"
+            text_font="font_12"
+            text_color="#text_secondary"
+        />
+        <style name="style_chat_scroll"
+            bg_opa="0"
+            width="100%"
+            flex_grow="1"
+            pad_hor="#unit_sm"
+            pad_ver="#unit_xs"
+        />
+        <style name="style_waveform"
+            bg_color="#accent_primary" bg_opa="60%"
+            width="4" height="16"
+            radius="2"
+        />
+    </styles>
+
+    <view flex_flow="column" width="100%" height="100%">
+        <style name="style_screen" />
+
+        <!-- ====== Top Status Bar (32px) ====== -->
+        <view name="status_bar" flex_flow="row" style_flex_main_place="space_between" style_flex_cross_place="center">
+            <style name="style_status_bar" />
+
+            <!-- Left: Volume icon + value -->
+            <view name="volume_display" flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_xs">
+                <lv_label text="🔊" style_text_font="font_12" />
+                <lv_label
+                    bind_text="volume"
+                    bind_text-fmt="%d%%"
+                    style_text_font="font_12"
+                    style_text_color="#text_primary"
+                />
+            </view>
+
+            <!-- Right: WiFi icon + Time -->
+            <view name="wifi_time" flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_xs">
+                <lv_label text="📶" style_text_font="font_12" />
+                <lv_label
+                    name="clock_label"
+                    text="10:30"
+                    style_text_font="font_12"
+                    style_text_color="#text_primary"
+                />
+            </view>
+        </view>
+
+        <!-- ====== Core Display Area (flex_grow fills remaining space) ====== -->
+        <view name="core_area" flex_flow="column" style_flex_cross_place="center" style_flex_main_place="center">
+            <style name="style_core_area" />
+
+            <!-- ====== Expression Mode (visible when ai_mode=0) ====== -->
+            <view name="expr_mode" flex_flow="column" style_flex_cross_place="center" style_flex_main_place="center"
+                  width="100%" flex_grow="1">
+                <bind_flag_if_eq subject="ai_mode" flag="hidden" ref_value="1" />
+
+                <!-- 160x160 face canvas area (C code draws via display_iface->draw_bitmap) -->
+                <lv_obj name="face_container" width="160" height="160"
+                    style_bg_opa="0" style_border_width="0">
+                    <!-- Face drawn natively — this is a placeholder container -->
+                </lv_obj>
+
+                <!-- Animation icon area (12px below face) -->
+                <view name="anim_icon_area" flex_flow="row" style_flex_cross_place="center" style_pad_column="#unit_sm"
+                      height="20" style_pad_top="#unit_sm">
+                    <lv_image src="icon_heart" width="14" height="14" style_image_opa="80%" />
+                    <lv_image src="icon_cloudy" width="14" height="14" style_image_opa="80%" />
+                    <lv_image src="icon_sunny" width="14" height="14" style_image_opa="80%" />
+                </view>
+            </view>
+
+            <!-- ====== Dialog Mode (visible when ai_mode=1) ====== -->
+            <view name="dialog_mode" flex_flow="column" width="100%" flex_grow="1">
+                <bind_flag_if_eq subject="ai_mode" flag="hidden" ref_value="0" />
+
+                <!-- Scrollable chat message container -->
+                <view name="chat_container" flex_flow="column" scrollable="true"
+                      scroll_momentum="true" scroll_elastic="true">
+                    <style name="style_chat_scroll" />
+                    <!-- Chat bubbles are created dynamically by C code as children of chat_container -->
+                    <!-- Max 25 recent messages -->
+                </view>
+            </view>
+        </view>
+
+        <!-- ====== Bottom Hint Area (~56px) ====== -->
+        <view name="bottom_area" flex_flow="column">
+            <style name="style_bottom_area" />
+
+            <!-- Status text + Waveform row -->
+            <view name="hint_row" flex_flow="row" style_flex_main_place="space_between"
+                  style_flex_cross_place="center" flex_grow="1" pad_hor="#unit_md">
+                <!-- Left: Status text (C code updates via lv_label_set_text) -->
+                <lv_label
+                    name="status_text"
+                    text="🎤 我在听..."
+                    style_text_font="font_12"
+                    style_text_color="#text_secondary"
+                />
+
+                <!-- Right: Waveform bars (animated by C code) -->
+                <view name="waveform" flex_flow="row" style_flex_cross_place="center" style_pad_column="2">
+                    <lv_obj name="wave_bar_1" style_bg_color="#accent_primary" style_bg_opa="60%"
+                            width="3" height="8" radius="1" />
+                    <lv_obj name="wave_bar_2" style_bg_color="#accent_primary" style_bg_opa="80%"
+                            width="3" height="14" radius="1" />
+                    <lv_obj name="wave_bar_3" style_bg_color="#accent_primary" style_bg_opa="100%"
+                            width="3" height="20" radius="1" />
+                    <lv_obj name="wave_bar_4" style_bg_color="#accent_primary" style_bg_opa="80%"
+                            width="3" height="14" radius="1" />
+                    <lv_obj name="wave_bar_5" style_bg_color="#accent_primary" style_bg_opa="60%"
+                            width="3" height="8" radius="1" />
+                </view>
+            </view>
+
+            <!-- 3 Page indicator dots (centered at bottom) -->
+            <view name="page_dots" flex_flow="row" style_flex_main_place="center"
+                  style_flex_cross_place="center" style_pad_column="#unit_sm" height="10">
+                <lv_obj width="6" height="6" radius="3"
+                    style_bg_color="#accent_primary" style_bg_opa="100%" />
+                <lv_obj width="6" height="6" radius="3"
+                    style_bg_color="#text_secondary" style_bg_opa="100%" />
+                <lv_obj width="6" height="6" radius="3"
+                    style_bg_color="#text_secondary" style_bg_opa="100%" />
+            </view>
+        </view>
+    </view>
+</screen>

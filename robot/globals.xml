@@ -36,6 +36,19 @@
         <color name="accent_orange" value="0xf59e0b" />
         <color name="accent_purple" value="0x8b5cf6" />
 
+        <!-- Dark tech theme colors (from UI需求.md) -->
+        <color name="bg_screen" value="0x0E121B" />
+        <color name="bg_card" value="0x1A212D" />
+        <color name="accent_primary" value="0x2E7DF6" />
+        <color name="text_primary" value="0xFFFFFF" />
+        <color name="text_secondary" value="0x8A94A6" />
+        <color name="text_accent_warn" value="0xF25C5C" />
+        <color name="bg_bubble_ai" value="0x2A333F" />
+        <color name="bg_bubble_user" value="0x2E7DF6" />
+        <color name="bg_slider_track" value="0x3A4354" />
+        <color name="bg_item_highlight" value="0x252F3E" />
+        <color name="bg_nav" value="0x0E121B" />
+
         <!-- Chat bubble colors -->
         <color name="bubble_user" value="0x3b82f6" />
         <color name="bubble_ai_light" value="0xe5e7eb" />
@@ -74,7 +87,100 @@
         <!-- Divider line -->
         <style name="style_divider" bg_color="#bg_tertiary_light" height="1" width="100%" />
         <style name="style_divider_dark" bg_color="#bg_tertiary_dark" />
+
+        <!-- Screen background (dark tech) -->
+        <style name="style_screen" bg_color="#bg_screen" text_color="#text_primary" />
+
+        <!-- Card container style -->
+        <style name="style_card"
+            bg_color="#bg_card" bg_opa="100%"
+            radius="12"
+            pad_all="#unit_md"
+            width="218" height="90"
+        />
+
+        <!-- Top navigation bar -->
+        <style name="style_nav_bar"
+            bg_color="#bg_nav" bg_opa="100%"
+            width="100%" height="48"
+            pad_hor="#unit_md"
+        />
+
+        <!-- Slider styles -->
+        <style name="style_slider_main"
+            bg_color="#bg_slider_track" bg_opa="100%"
+            radius="3"
+        />
+        <style name="style_slider_indicator"
+            bg_color="#accent_primary" bg_opa="100%"
+            radius="3"
+        />
+        <style name="style_slider_knob"
+            bg_color="#accent_primary" bg_opa="100%"
+            radius="8" width="16" height="16"
+            pad_all="0"
+        />
+
+        <!-- Switch styles -->
+        <style name="style_switch_main"
+            bg_color="#bg_slider_track" bg_opa="100%"
+        />
+        <style name="style_switch_indicator_checked"
+            bg_color="#accent_primary" bg_opa="100%"
+        />
+        <style name="style_switch_knob"
+            bg_color="#FFFFFF" bg_opa="100%"
+            pad_all="2"
+        />
+
+        <!-- Music play mode button (active) -->
+        <style name="style_mode_btn_active"
+            bg_color="#accent_primary" bg_opa="100%"
+            text_color="#FFFFFF"
+            radius="8"
+        />
+        <style name="style_mode_btn_inactive"
+            bg_color="#bg_card" bg_opa="100%"
+            text_color="#text_secondary"
+            radius="8"
+        />
+
+        <!-- Bottom hint bar -->
+        <style name="style_bottom_hint"
+            bg_color="0x000000" bg_opa="40%"
+            width="100%" height="26"
+        />
+
+        <!-- Page indicator dot -->
+        <style name="style_dot"
+            bg_color="#text_secondary" bg_opa="100%"
+            radius="3" width="6" height="6"
+        />
+        <style name="style_dot_active"
+            bg_color="#accent_primary" bg_opa="100%"
+        />
     </styles>
+
+    <images>
+        <file name="icon_heart" src_path="images/icon_heart.png" />
+        <file name="icon_cloudy" src_path="images/icon_cloudy.png" />
+        <file name="icon_sunny" src_path="images/icon_sunny.png" />
+        <file name="icon_play" src_path="images/icon_play.png" />
+        <file name="icon_pause" src_path="images/icon_pause.png" />
+        <file name="icon_skip_back" src_path="images/icon_skip_back.png" />
+        <file name="icon_skip_forward" src_path="images/icon_skip_forward.png" />
+        <file name="icon_volume_max" src_path="images/icon_volume_max.png" />
+        <file name="icon_volume_min" src_path="images/icon_volume_min.png" />
+        <file name="icon_volume_none" src_path="images/icon_volume_none.png" />
+        <file name="icon_plus" src_path="images/icon_plus.png" />
+        <file name="icon_minus" src_path="images/icon_minus.png" />
+        <file name="icon_pin" src_path="images/icon_pin.png" />
+        <file name="icon_theme" src_path="images/icon_theme.png" />
+        <file name="song_cover_1" src_path="images/song_cover_1.png" />
+        <file name="light_temp_arc_bg" src_path="images/light_temp_arc_bg.png" />
+        <file name="weather_location_1_bg" src_path="images/weather_location_1_bg.png" />
+        <file name="weather_location_2_bg" src_path="images/weather_location_2_bg.png" />
+    </images>
 
     <subjects>
         <!-- ====== AI Main Page ====== -->

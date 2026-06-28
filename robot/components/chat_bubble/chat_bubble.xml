@@ -1,8 +1,8 @@
 <!--
     Chat Bubble Component
     Used in AI dialog mode to display conversation messages.
-    - User messages: right-aligned, blue background
-    - AI messages: left-aligned, gray background
+    - User messages: right-aligned, blue (#2E7DF6) background
+    - AI messages: left-aligned, dark (#2A333F) background
     - role prop: "user" or "ai" determines alignment and colors
 -->
 <component>
@@ -18,32 +18,28 @@
     <styles>
         <!-- User bubble style (right-aligned, blue) -->
         <style name="style_user_bubble"
-            bg_color="0x3b82f6"
-            bg_opa="100%"
-            text_color="0xffffff"
+            bg_color="#bg_bubble_user" bg_opa="100%"
+            text_color="#FFFFFF"
             radius="#unit_md"
             pad_hor="#unit_md"
             pad_ver="#unit_sm"
             width="content"
             max_width="180"
             height="content"
+            text_font="font_12"
         />
 
-        <!-- AI bubble style (left-aligned, gray) -->
+        <!-- AI bubble style (left-aligned, dark gray) -->
         <style name="style_ai_bubble"
-            bg_color="0xe5e7eb"
-            bg_opa="100%"
-            text_color="0x1f2937"
+            bg_color="#bg_bubble_ai" bg_opa="100%"
+            text_color="#FFFFFF"
             radius="#unit_md"
             pad_hor="#unit_md"
             pad_ver="#unit_sm"
             width="content"
             max_width="180"
             height="content"
-        />
-        <style name="style_ai_bubble_dark"
-            bg_color="0x374151"
-            text_color="0xf9fafb"
+            text_font="font_12"
         />
     </styles>
 
@@ -51,12 +47,17 @@
         <!-- AI message: left-aligned -->
         <lv_label
             text="$message"
-            style_text_font="font_12"
             align="left"
         >
             <style name="style_ai_bubble" />
-            <bind_style name="style_ai_bubble_dark" subject="dark_theme" ref_value="1" />
-            <!-- Hide when role is user -->
+        </lv_label>
+
+        <!-- User message: right-aligned -->
+        <lv_label
+            text="$message"
+            align="right"
+        >
+            <style name="style_user_bubble" />
         </lv_label>
     </view>
 </component>

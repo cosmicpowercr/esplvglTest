@@ -1,13 +1,14 @@
 <!--
     Music Item Component
     A single song entry in the music playlist.
-    - Displays song file name
+    - Displays song file name with music icon
     - Highlights when selected (current_song_index matches this item's index)
-    - The C code handles the actual selection logic
+    - Normal: icon #4A5666, text #8A94A6 (secondary)
+    - Selected: icon #2E7DF6, bg #252F3E, 1px blue border
 -->
 <component>
     <previews>
-        <preview width="220" height="40" style_pad_all="4" />
+        <preview width="220" height="48" style_pad_all="4" />
     </previews>
 
     <api>
@@ -18,43 +19,33 @@
     <styles>
         <!-- Normal (unselected) item style -->
         <style name="style_item_normal"
-            bg_color="0xffffff"
-            bg_opa="100%"
-            text_color="0x1f2937"
+            bg_color="#bg_screen" bg_opa="100%"
+            text_color="#text_secondary"
             radius="#unit_sm"
-            pad_hor="#unit_md"
+            pad_hor="#unit_lg"
             pad_ver="#unit_sm"
             width="100%"
-            height="content"
+            height="48"
             border_width="0"
-        />
-        <style name="style_item_normal_dark"
-            bg_color="0x16213e"
-            text_color="0xf9fafb"
         />
 
         <!-- Selected (playing) item style -->
         <style name="style_item_selected"
-            bg_color="0xdbeafe"
-            bg_opa="100%"
-            text_color="0x1e40af"
-            border_color="0x3b82f6"
-            border_width="2"
+            bg_color="#bg_item_highlight" bg_opa="100%"
+            text_color="#accent_primary"
+            border_color="#accent_primary"
+            border_width="1"
             border_opa="100%"
-        />
-        <style name="style_item_selected_dark"
-            bg_color="0x1e3a5f"
-            text_color="0x93c5fd"
-            border_color="0x60a5fa"
+            radius="#unit_sm"
         />
 
         <!-- Text style for song name -->
         <style name="style_song_text"
-            text_font="font_12"
+            text_font="font_14"
         />
     </styles>
 
-    <view width="100%" height="content" style_pad_ver="#unit_xs">
+    <view width="100%" height="48" style_pad_ver="#unit_xs">
         <lv_label
             text="$song_name"
             align="left"
@@ -62,11 +53,9 @@
         >
             <style name="style_item_normal" />
             <style name="style_song_text" />
-            <bind_style name="style_item_normal_dark" subject="dark_theme" ref_value="1" />
-            <!-- Selected state is applied by C code via lv_obj_add_state or similar -->
+            <!-- Selected state is applied by C code at runtime.
+                 When the user scrolls and stops for 3s, C code sets the selected
+                 state on the item under the scroll position and triggers playback. -->
         </lv_label>
-        <!-- Note: The selected highlight is managed by C code at runtime.
-             When the user scrolls and stops for 3s, C code sets the selected
-             state on the item under the scroll position and triggers playback. -->
     </view>
 </component>
