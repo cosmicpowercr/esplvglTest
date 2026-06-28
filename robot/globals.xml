@@ -1,4 +1,11 @@
 <globals>
+    <!--
+        NOTE: This project uses TinyTTF fonts (Geist), not LVGL's built-in Montserrat.
+        Therefore LVGL built-in symbols (LV_SYMBOL_*) are NOT available.
+        Emoji / Unicode glyphs used instead throughout screens:
+          🔊 = volume, 📶 = WiFi, ⌂ = home, ♪/♫ = music, ☀ = brightness,
+          🔄 = mode switch, 📋 = list, 🔀 = shuffle, 🔂 = single repeat, 🔁 = list repeat
+    -->
     <api>
         <!-- Add <enumdefs> here if needed -->
     </api>
@@ -184,7 +191,7 @@
 
     <subjects>
         <!-- ====== AI Main Page ====== -->
-        <int name="ai_mode" value="0" help="0:expression mode, 1:dialog mode" />
+        <int name="ai_mode" value="0" min_value="0" max_value="1" help="0:expression mode, 1:dialog mode" />
         <int name="expression" value="0" help="0:neutral, 1:happy, 2:sad, 3:thinking, 4:speaking, 5:surprised, 6:listening" />
         <int name="ai_status_text_id" value="0" help="Status text identifier set by C code" />
         <int name="dark_theme" value="0" help="0:light, 1:dark" />

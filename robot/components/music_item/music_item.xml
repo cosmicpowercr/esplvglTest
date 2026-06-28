@@ -1,10 +1,11 @@
 <!--
     Music Item Component
     A single song entry in the music playlist.
-    - Displays song file name
+    - Displays music icon (♫) + song file name
     - Highlights when selected (current_song_index matches this item's index)
-    - Normal: text #8A94A6 (text_secondary)
-    - Selected: text #2E7DF6, bg #252F3E, 1px blue border
+    - Normal: icon #4A5666, text #8A94A6 (text_secondary)
+    - Selected: icon #2E7DF6, text #2E7DF6, bg #252F3E, 1px blue border
+    - Selected style applied by C code via lv_obj_add_style at runtime
 -->
 <component>
     <previews>
@@ -40,16 +41,40 @@
             radius="#unit_sm"
             text_font="font_14"
         />
+
+        <!-- Music icon style (normal state) -->
+        <style name="style_icon_normal"
+            text_font="font_14"
+            text_color="0x4A5666"
+        />
+
+        <!-- Music icon style (selected state) -->
+        <style name="style_icon_selected"
+            text_font="font_14"
+            text_color="#accent_primary"
+        />
     </styles>
 
-    <view width="100%" height="48" style_pad_ver="#unit_xs">
+    <view width="100%" height="48" flex_flow="row" style_layout="flex"
+          style_flex_cross_place="center" style_pad_hor="#unit_lg">
+        <!-- Music symbol icon (♫ = LV_SYMBOL_MUSIC equivalent for TTF fonts) -->
+        <lv_label
+            text="♫"
+            width="24"
+            style_text_align="center"
+        >
+            <style name="style_icon_normal" />
+            <!-- Selected color applied by C code -->
+        </lv_label>
+
+        <!-- Song filename -->
         <lv_label
             text="$song_name"
-            align="left_mid"
-            width="100%"
+            flex_grow="1"
+            style_pad_left="#unit_sm"
         >
             <style name="style_item_normal" />
-            <!-- Selected state is applied by C code at runtime via lv_obj_add_style -->
+            <!-- Selected style applied by C code via lv_obj_add_style -->
         </lv_label>
     </view>
 </component>

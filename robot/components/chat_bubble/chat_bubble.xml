@@ -3,7 +3,8 @@
     Used in AI dialog mode to display conversation messages.
     - User messages: right-aligned, blue (#2E7DF6) background
     - AI messages: left-aligned, dark (#2A333F) background
-    - role prop: "user" or "ai" determines alignment and colors
+    - role prop: "user" or "ai" — C code applies the matching style at creation time
+      (lv_obj_add_style with style_user_bubble or style_ai_bubble)
 -->
 <component>
     <previews>
@@ -16,11 +17,12 @@
     </api>
 
     <styles>
-        <!-- User bubble style (right-aligned, blue) -->
+        <!-- User bubble style (right-aligned, blue bg, white text) -->
         <style name="style_user_bubble"
             bg_color="#bg_bubble_user" bg_opa="100%"
             text_color="0xFFFFFF"
             text_font="font_12"
+            text_align="right"
             radius="#unit_md"
             pad_hor="#unit_md"
             pad_ver="#unit_sm"
@@ -29,11 +31,12 @@
             height="content"
         />
 
-        <!-- AI bubble style (left-aligned, dark gray) -->
+        <!-- AI bubble style (left-aligned, dark gray bg, white text) — default -->
         <style name="style_ai_bubble"
             bg_color="#bg_bubble_ai" bg_opa="100%"
             text_color="0xFFFFFF"
             text_font="font_12"
+            text_align="left"
             radius="#unit_md"
             pad_hor="#unit_md"
             pad_ver="#unit_sm"
@@ -43,23 +46,14 @@
         />
     </styles>
 
+    <!-- Single label — C code applies the correct style based on role prop -->
     <view width="100%" height="content" style_pad_ver="#unit_xs">
-        <!-- AI message: left-aligned -->
         <lv_label
             text="$message"
-            align="left_mid"
-            style_text_align="left"
+            align="center"
         >
             <style name="style_ai_bubble" />
-        </lv_label>
-
-        <!-- User message: right-aligned -->
-        <lv_label
-            text="$message"
-            align="right_mid"
-            style_text_align="right"
-        >
-            <style name="style_user_bubble" />
+            <!-- For user messages, C code applies style_user_bubble via lv_obj_add_style -->
         </lv_label>
     </view>
 </component>

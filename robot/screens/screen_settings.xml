@@ -157,7 +157,8 @@
 
                 <!-- Right arrow -->
                 <lv_label text="›" style_text_font="font_20" style_text_color="#text_secondary" />
-                <!-- Mode toggling handled by C code via LV_EVENT_CLICKED callback -->
+                <!-- Click toggles ai_mode between 0 (expression) and 1 (dialog) -->
+                <subject_toggle_event subject="ai_mode" trigger="clicked" />
             </lv_obj>
 
             <!-- Spacer -->
